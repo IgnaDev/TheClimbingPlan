@@ -3,6 +3,7 @@ package com.example.theclimbingplan;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
@@ -23,12 +24,14 @@ public class Ejercicio {
     public String descripcion;
     public int idGrupo;
 
+
     public Ejercicio(@NonNull String nombre, String descripcion, int idGrupo) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.idGrupo = idGrupo;
     }
 
+    @Ignore
     public Ejercicio(@NonNull String nombre) {
         this.nombre = nombre;
     }

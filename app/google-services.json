@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "733327380151",
+    "project_id": "the-climbing-plan",
+    "storage_bucket": "the-climbing-plan.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:733327380151:android:3e7d0e77b089fa42238732",
+        "android_client_info": {
+          "package_name": "com.example.theclimbingplan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "733327380151-5imt3r3nap2p3ldplf02ef6djriaclu8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpxAjiMMcIKTkw2cb8-3_sUrS2cf8zRc8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "733327380151-5imt3r3nap2p3ldplf02ef6djriaclu8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

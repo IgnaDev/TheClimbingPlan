@@ -3,6 +3,7 @@ package com.example.theclimbingplan;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
@@ -17,6 +18,7 @@ import androidx.room.PrimaryKey;
 public class Serie {
 
     @PrimaryKey
+    @NonNull
     public String nombre;
 
     @NonNull
@@ -29,6 +31,7 @@ public class Serie {
     public float descansoCiclo;
     public int ciclos;
 
+    @Ignore
     public Serie(int idEjercicio, String nombre, int repeticiones, float descansoCiclo, int ciclos) {
         this.idEjercicio = idEjercicio;
         this.nombre = nombre;

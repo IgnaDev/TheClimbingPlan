@@ -2,6 +2,7 @@ package com.example.theclimbingplan;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
@@ -17,6 +18,12 @@ public class Grupo {
     public String descripcion;
 
     public Grupo(@NonNull String nombre, String descripcion) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+    }
+    @Ignore
+    public Grupo(int _tmpIdGrupo, @NonNull String nombre, String descripcion) {
+        this.idGrupo=_tmpIdGrupo;
         this.nombre = nombre;
         this.descripcion = descripcion;
     }
