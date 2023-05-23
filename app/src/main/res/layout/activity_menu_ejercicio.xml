@@ -5,42 +5,43 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fondocolor"
-    tools:context=".MainActivity">
+    android:backgroundTint="@color/claro"
+    tools:context=".MenuEjercicio">
 
-    <ImageView
-        android:id="@+id/imgLogo"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/btnCrearEjercicio"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="323dp"
+        android:backgroundTint="@color/oscuro"
+        android:text="Crear Ejercicio"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/tcplogo" />
+        app:layout_constraintVertical_bias="0.05" />
 
     <Button
-        android:id="@+id/btnEntrenoPrincipal"
+        android:id="@+id/btnModificarEjercicio"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="27dp"
         android:backgroundTint="@color/oscuro"
-        android:onClick="irSesion"
-        android:text="Entrenamiento"
-        app:layout_constraintBottom_toTopOf="@+id/btnHistoricoPrincipal"
+        android:text="Modificar Ejercicio"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnCrearEjercicio" />
 
     <Button
-        android:id="@+id/btnHistoricoPrincipal"
+        android:id="@+id/btnEliminarEjercicio"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="48dp"
+        android:layout_marginTop="27dp"
         android:backgroundTint="@color/oscuro"
-        android:onClick="irHistorico"
-        android:text="Progreso"
-        app:layout_constraintBottom_toBottomOf="@+id/imgLogo"
+        android:text="EliminarEjercicio"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnModificarEjercicio" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
