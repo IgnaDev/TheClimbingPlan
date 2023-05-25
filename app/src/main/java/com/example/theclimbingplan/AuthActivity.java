@@ -1,6 +1,7 @@
 package com.example.theclimbingplan;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,21 +14,28 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 
 public class AuthActivity extends AppCompatActivity {
     private FirebaseAnalytics mFirebaseAnalytics;
     //Button btnMenuSesion, btnMenuHistorico;
-    Button btnSignUp, btnLogIn;
+    Button btnSignUp, btnLogIn, btnGoogle;
     EditText etEmail, etPassword;
     FirebaseAuth mAuth;
-
+    private int GOOGLE_SIGN_IN = 100;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +44,7 @@ public class AuthActivity extends AppCompatActivity {
         //btnMenuHistorico = findViewById(R.id.btnHistoricoPrincipal);
         btnSignUp = findViewById(R.id.btnSignUp);
         btnLogIn = findViewById(R.id.btnLogIn);
+        btnGoogle = findViewById(R.id.btnGoogle);
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
         mAuth = FirebaseAuth.getInstance();
@@ -77,6 +86,21 @@ public class AuthActivity extends AppCompatActivity {
                 else{
                     loginUser(email, password);
                 }
+            }
+        });
+
+        btnGoogle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //configuracion
+                GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                        .requestIdToken(getString(R.string.default_web_client_id))
+                        .requestEmail()
+                        .build();
+
+                GoogleSignInClient gsi = GoogleSignIn.getClient(AuthActivity.this, gso);
+                gsi.signOut();
+                startActivityForResult(gsi.getSignInIntent(), GOOGLE_SIGN_IN);
             }
         });
     }
@@ -125,6 +149,39 @@ public class AuthActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == GOOGLE_SIGN_IN) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            GoogleSignInAccount account = null;
+            try {
+                account = task.getResult(ApiException.class);
+
+                if (account != null) {
+                    AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
+                    mAuth.signInWithCredential(credential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if(task.isSuccessful()){
+                                finish();
+                                startActivity(new Intent(AuthActivity.this, HomeActivity.class));
+                                Toast.makeText(AuthActivity.this, "Usuario registrado con éxito", Toast.LENGTH_LONG).show();
+                            }
+                            else{
+                                Toast.makeText(AuthActivity.this, "Error de registro", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+                }
+            } catch (ApiException e) {
+                e.printStackTrace();
+                Toast.makeText(AuthActivity.this, "Error al iniciar sesión", Toast.LENGTH_LONG).show();
+
+            }
+        }
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
         FirebaseUser user = mAuth.getCurrentUser();
@@ -133,24 +190,12 @@ public class AuthActivity extends AppCompatActivity {
             finish();
         }
     }
-
-/*
-    private void showAlert(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Error");
-        builder.setMessage("Error al autenticar Usuario");
-        builder.setPositiveButton("Aceptar", null);
-        builder.create();
-        builder.show();
-        //AlertDialog alertDialog = new AlertDialog();
-    }
-*/
-
+   /*
     public void irSesion(){
         Intent intent = new Intent(this, MenuEntrenamiento.class);
         startActivity(intent);
     }
-/*
+
     public void irHistorico(View view){
         Intent intent = new Intent(this, MenuHistorico.class);
         startActivity(intent);

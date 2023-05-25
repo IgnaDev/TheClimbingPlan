@@ -73,6 +73,24 @@
                 android:layout_weight="1"
                 android:backgroundTint="@color/verdefluor"
                 android:text="Acceder" />
+
         </LinearLayout>
+
+        <Space
+            android:layout_width="16dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/btnGoogle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:drawableStart="@drawable/google"
+            android:paddingStart="16dp"
+            android:text="Google"
+            android:textAlignment="textStart"
+            android:textColor="?attr/colorPrimaryDark" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

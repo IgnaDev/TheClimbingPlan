@@ -9,6 +9,10 @@ import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+enum ProviderType{
+    BASIC,
+    GOOGLE
+}
 public class HomeActivity extends AppCompatActivity {
 
     Button btnLogOut;
