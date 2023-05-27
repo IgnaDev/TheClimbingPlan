@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">The Climbing Plan</string>
+    <string name="cerrar_sesion">Cerrar Sesion</string>
+    <string name="entrenamiento">Entrenamiento</string>
+    <string name="historial">Historial</string>
+    <string name="realizar_entrenamiento">Realizar Entrenamiento</string>
+    <string name="modificar_entrenamiento">Modificar Entrenamiento</string>
+    <string name="eliminar_entrenamiento">Eliminar Entrenamiento</string>
+    <string name="crear_sesion_de_entrenamiento">Crear Sesión de Entrenamiento</string>
+    <string name="nombre">Nombre</string>
+    <string name="descripci_n">Descripción</string>
+    <string name="textview">Categoria</string>
+    <string name="todo">TODO</string>
+    <string name="aceptar">aceptar</string>
+    <string name="cancelar">cancelar</string>
 </resources>

@@ -2,19 +2,19 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fondocolor"
-    android:backgroundTint="@color/claro"
-    tools:context=".FormularioEntrenamiento">
+    tools:context=".CrearCategoria">
 
     <LinearLayout
-        android:id="@+id/linearLayout4"
-        android:layout_width="match_parent"
+        android:id="@+id/linearLayout5"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="32dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <EditText
-            android:id="@+id/etNombreEntrenamiento"
+            android:id="@+id/etNombreCategoria"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="27dp"
@@ -34,7 +34,7 @@
             android:textColorHint="#90CAF9" />
 
         <EditText
-            android:id="@+id/etDescripcionEntrenamiento"
+            android:id="@+id/etDescripcionCategoria"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="27dp"
@@ -47,31 +47,28 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginTop="27dp"
             android:orientation="horizontal">
 
-            <Spinner
-                android:id="@+id/spinnerCategoria"
-                android:layout_width="341dp"
-                android:layout_height="48dp"
+            <Button
+                android:id="@+id/btnVolverCrearCategoria"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="27dp"
                 android:layout_weight="1"
-                android:spinnerMode="dropdown"
-                tools:ignore="SpeakableTextPresentCheck" />
+                android:text="@string/cancelar"
+                android:textColor="#90A4AE" />
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/floatingActionButton2"
+            <Button
+                android:id="@+id/btnAceptarCrearCategoria"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:clickable="true"
-                android:minWidth="48dp"
-                android:minHeight="48dp"
-                app:srcCompat="@android:drawable/ic_menu_add"
-                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck"
-                android:contentDescription="@string/todo"
-                android:focusable="true" />
-
+                android:text="@string/aceptar"
+                android:textColor="#80DEEA" />
         </LinearLayout>
 
     </LinearLayout>

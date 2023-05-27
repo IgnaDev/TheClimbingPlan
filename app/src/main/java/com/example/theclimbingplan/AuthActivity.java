@@ -190,16 +190,5 @@ public class AuthActivity extends AppCompatActivity {
             finish();
         }
     }
-   /*
-    public void irSesion(){
-        Intent intent = new Intent(this, MenuEntrenamiento.class);
-        startActivity(intent);
-    }
 
-    public void irHistorico(View view){
-        Intent intent = new Intent(this, MenuHistorico.class);
-        startActivity(intent);
-    }
-
- */
 }
