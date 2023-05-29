@@ -3,10 +3,15 @@ package com.example.theclimbingplan;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CrearCategoria extends AppCompatActivity {
 
@@ -30,24 +35,60 @@ public class CrearCategoria extends AppCompatActivity {
         btnAceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(valorCorrecto(String.valueOf(etNombreCategoria.getText()))
-                        && valorCorrecto(String.valueOf(etDescripcionCategoria.getText()))){
-                    //comprobar si nombre existe
-                    insertarCategoria(String.valueOf(etNombreCategoria.getText()),String.valueOf(etDescripcionCategoria.getText()));
-                    //toast exito
+                String nombre = String.valueOf(etNombreCategoria.getText());
+                String descripcion = String.valueOf(etDescripcionCategoria.getText());
+                if(nombre.isEmpty()
+                        || descripcion.isEmpty()){
+                    //toast completar campos
+                    Toast.makeText(CrearCategoria.this, "Debe rellenar ambos campos para continuar", Toast.LENGTH_LONG).show();
                 }
                 else{
-                    //toast fracaso
+                    List<String> listaNombres = new ArrayList<>();
+                    listaNombres = consultarNombres();
+                    //comprobar si nombre existe
+                    if(nombreExiste(nombre, listaNombres)){
+                        //toast nombre ya existe
+                        Toast.makeText(CrearCategoria.this, "Categoría ya existente", Toast.LENGTH_LONG).show();
+                    }
+                    else{
+                        insertarCategoria(String.valueOf(etNombreCategoria.getText()),String.valueOf(etDescripcionCategoria.getText()));
+                        //toast exito
+                        Toast.makeText(CrearCategoria.this, "Categoría creada", Toast.LENGTH_LONG).show();
+                        irFormularioEntrenamiento();
+                    }
                 }
+            }
+        });
+
+        btnCancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                irFormularioEntrenamiento();
             }
         });
     }
 
-    public boolean valorCorrecto(String valor){
-        return valor.isEmpty();
+    public boolean nombreExiste(String nombre, List<String> listaNombres)
+    {
+        boolean nombreCorrecto = false;
+        for (String s: listaNombres
+             ) {
+            if(s.equals(nombre)){
+                nombreCorrecto = true;
+            }
+        }
+        return nombreCorrecto;
     }
 
+    public List<String> consultarNombres(){
+        return baseDatos.daoCategoria().consultarNombresCategorias();
+    }
     public void insertarCategoria(String nombre, String descripcion){
         baseDatos.daoCategoria().insertarCategoria(new Categoria(nombre, descripcion));
+    }
+
+    public void irFormularioEntrenamiento(){
+        Intent intencion = new Intent(CrearCategoria.this, FormularioEntrenamiento.class);
+        startActivity(intencion);
     }
 }

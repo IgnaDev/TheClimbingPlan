@@ -28,11 +28,14 @@ public class MenuEntrenamiento extends AppCompatActivity {
         btnCrearEntrenamiento.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intencion = new Intent(MenuEntrenamiento.this, FormularioEntrenamiento.class);
-                intencion.putExtra("accion", "crear");
-                startActivity(intencion);
+                irFormularioEntrenamiento();
             }
         });
 
+    }
+
+    public void irFormularioEntrenamiento(){
+        Intent intencion = new Intent(MenuEntrenamiento.this, FormularioEntrenamiento.class);
+        startActivity(intencion);
     }
 }
