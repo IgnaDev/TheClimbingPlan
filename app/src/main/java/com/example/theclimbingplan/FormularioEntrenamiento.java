@@ -33,12 +33,15 @@ public class FormularioEntrenamiento extends AppCompatActivity {
         etDescripcionEntrenamiento = findViewById(R.id.etDescripcionEntrenamiento);
         spinnerCategoría = findViewById(R.id.spinnerCategoria);
         btnCrearCategoria = findViewById(R.id.btnCrearCategoria);
+
         baseDatos = Room.databaseBuilder(
                 getApplicationContext(),
                 BaseDatos.class,
                 "@DBPruebas"
         ).allowMainThreadQueries().build();
+//TODO refrescar spinner al abrir activity
 
+        //CATEGORIA
         adapterSpinnerCategoria();
         btnCrearCategoria.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +49,9 @@ public class FormularioEntrenamiento extends AppCompatActivity {
                 irCrearCategoria();
             }
         });
+
+        //SERIES
+
 
     }
 

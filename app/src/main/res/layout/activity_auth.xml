@@ -25,11 +25,13 @@
             android:id="@+id/etEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:autofillHints=""
             android:ems="10"
-            android:hint="Email"
+            android:hint="@string/email"
             android:inputType="textEmailAddress"
             android:minHeight="48dp"
-            android:textColor="#00BCD4" />
+            android:textColor="#00BCD4"
+            android:textColorHint="#82B1FF" />
 
         <Space
             android:layout_width="match_parent"
@@ -40,9 +42,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Contraseña"
+            android:hint="@string/contrase_a"
             android:inputType="textPassword"
-            android:minHeight="48dp" />
+            android:minHeight="48dp"
+            android:textColorHint="#80DEEA"
+            android:autofillHints="" />
 
         <Space
             android:layout_width="match_parent"
@@ -59,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:backgroundTint="@color/verdefluor"
-                android:text="Registrar" />
+                android:text="@string/registrar" />
 
             <Space
                 android:layout_width="8dp"
@@ -72,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:backgroundTint="@color/verdefluor"
-                android:text="Acceder" />
+                android:text="@string/acceder" />
 
         </LinearLayout>
 
@@ -89,10 +93,9 @@
             android:background="@color/white"
             android:backgroundTint="#FBF8F8"
             android:drawableStart="@drawable/google"
-            android:drawableLeft="@drawable/google"
             android:paddingStart="16dp"
-            android:text="Google"
+            android:text="@string/google"
             android:textAlignment="textStart"
-            android:textColor="?attr/colorPrimaryDark" />
+            android:textColor="#827717" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
