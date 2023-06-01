@@ -21,7 +21,7 @@ public interface DaoEjercicio {
     Ejercicio consultarEjercicioPorNombre(String nombre);
 
     @Query("SELECT * FROM Ejercicio WHERE idGrupo = :idGrupo")
-    Ejercicio consultarEjercicioPorGrupo(int idGrupo);
+    List<Ejercicio> consultarEjercicioPorGrupo(int idGrupo);
 
     @Insert
     void insertarEjercicio(Ejercicio...ejercicios);

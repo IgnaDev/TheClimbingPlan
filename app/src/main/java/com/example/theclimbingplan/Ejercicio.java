@@ -35,6 +35,10 @@ public class Ejercicio {
     public Ejercicio(@NonNull String nombre) {
         this.nombre = nombre;
     }
+    @Ignore
+    public Ejercicio() {
+
+    }
 
     @Override
     public String toString() {

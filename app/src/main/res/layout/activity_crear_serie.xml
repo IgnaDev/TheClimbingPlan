@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/fondocolor"
     tools:context=".CrearSerie">
 
     <RelativeLayout
@@ -22,22 +23,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="48dp"
-            android:spinnerMode="dropdown" />
+            android:spinnerMode="dropdown"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/categorySpinner">
+            android:layout_below="@id/categorySpinner"
+            tools:ignore="SpeakableTextPresentCheck">
 
             <LinearLayout
-                android:id="@+id/moviesLayout"
+                android:id="@+id/ejerciciosLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <!-- Aquí se añadirán las vistas de las películas dinámicamente -->
-
-            </LinearLayout>
+                android:orientation="vertical"/>
         </ScrollView>
 
     </RelativeLayout>
