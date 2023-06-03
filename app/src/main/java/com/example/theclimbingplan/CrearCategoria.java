@@ -31,7 +31,7 @@ public class CrearCategoria extends AppCompatActivity {
                 BaseDatos.class,
                 "@DBPruebas"
         ).allowMainThreadQueries().build();
-
+        setTitle("Crear Categoria");
         btnAceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

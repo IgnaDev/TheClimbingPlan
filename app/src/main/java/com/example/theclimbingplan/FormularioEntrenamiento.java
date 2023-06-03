@@ -23,7 +23,7 @@ public class FormularioEntrenamiento extends AppCompatActivity {
     EditText etNombreEntrenamiento, etDescripcionEntrenamiento;
     Spinner spinnerCategoría;
     BaseDatos baseDatos;
-    FloatingActionButton btnCrearCategoria;
+    FloatingActionButton btnCrearCategoria, btnAddSerie;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +33,8 @@ public class FormularioEntrenamiento extends AppCompatActivity {
         etDescripcionEntrenamiento = findViewById(R.id.etDescripcionEntrenamiento);
         spinnerCategoría = findViewById(R.id.spinnerCategoria);
         btnCrearCategoria = findViewById(R.id.btnCrearCategoria);
-
+        btnAddSerie = findViewById(R.id.btnAddSerie);
+        setTitle("Formulario Entrenamiento");
         baseDatos = Room.databaseBuilder(
                 getApplicationContext(),
                 BaseDatos.class,
@@ -51,7 +52,12 @@ public class FormularioEntrenamiento extends AppCompatActivity {
         });
 
         //SERIES
-
+        btnAddSerie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                irCrearSerie();
+            }
+        });
 
     }
 
@@ -63,8 +69,8 @@ public class FormularioEntrenamiento extends AppCompatActivity {
         spinnerCategoría.setAdapter(adapter);
     }
 
-    public void irEjercicio(){
-        Intent intent = new Intent(this, MenuEjercicio.class);
+    public void irCrearSerie(){
+        Intent intent = new Intent(this, CrearSerie.class);
         startActivity(intent);
     }
 

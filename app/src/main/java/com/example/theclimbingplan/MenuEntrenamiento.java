@@ -16,13 +16,10 @@ public class MenuEntrenamiento extends AppCompatActivity {
         setContentView(R.layout.activity_menu_entrenamiento);
         btnRealizarEntrenamiento = findViewById(R.id.btnRealizarEntrenamiento);
         btnCrearEntrenamiento = findViewById(R.id.btnCrearSesion);
-
+        setTitle("Entrenamiento");
         btnRealizarEntrenamiento.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intencion = new Intent(MenuEntrenamiento.this, RealizarEntrenamiento.class);
-                startActivity(intencion);
-            }
+            public void onClick(View v) {irRealizarEntrenamiento();   }
         });
 
         btnCrearEntrenamiento.setOnClickListener(new View.OnClickListener() {
@@ -38,4 +35,11 @@ public class MenuEntrenamiento extends AppCompatActivity {
         Intent intencion = new Intent(MenuEntrenamiento.this, FormularioEntrenamiento.class);
         startActivity(intencion);
     }
+
+    public void irRealizarEntrenamiento(){
+        Intent intencion = new Intent(MenuEntrenamiento.this, RealizarEntrenamiento.class);
+        startActivity(intencion);
+    }
+
+
 }

@@ -17,7 +17,7 @@ public class MenuEjercicio extends AppCompatActivity {
         btnCrearEjercicio = findViewById(R.id.btnCrearEjercicio);
         btnModificarEjercicio = findViewById(R.id.btnModificarEjercicio);
         btnEliminarEjercicio = findViewById(R.id.btnEliminarEjercicio);
-
+        setTitle("Ejercicio");
         btnCrearEjercicio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
