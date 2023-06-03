@@ -20,4 +20,11 @@
     <string name="google">Google</string>
     <string name="serie_1">Serie 1</string>
     <string name="a_adir">Añadir</string>
+    <string name="ciclos">Ciclos</string>
+    <string name="duraci_n">Duración</string>
+    <string name="descanso_por_ciclo">Descanso por ciclo</string>
+    <string name="repeticiones">Repeticiones</string>
+    <string name="introducir_duraci_n">Introducir Duración</string>
+    <string name="introducir_repeticiones">Introducir Repeticiones</string>
+    <string name="ejercicio">Ejercicio</string>
 </resources>

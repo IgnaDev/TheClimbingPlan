@@ -4,6 +4,136 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/fondocolor"
     tools:context=".FormularioSerie">
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout10"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="27dp"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tvEjerSeleccionado"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ejercicio"
+            android:textColor="#90CAF9"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/editTextNombreSerie"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="27dp"
+            android:autofillHints=""
+            android:hint="@string/nombre"
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:textColorHint="#90CAF9" />
+
+        <RadioGroup
+            android:id="@+id/radioGroupSeleccion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/radioRepeticiones"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/introducir_repeticiones"
+                android:textColor="#90A4AE" />
+
+            <RadioButton
+                android:id="@+id/radioDuracion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/introducir_duraci_n"
+                android:textColor="#90A4AE" />
+
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/editTextRepeticiones"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="27dp"
+            android:autofillHints=""
+            android:hint="@string/repeticiones"
+            android:inputType="number"
+            android:minHeight="48dp"
+            android:textColorHint="#90CAF9"
+            android:visibility="invisible"/>
+
+        <EditText
+            android:id="@+id/editTextDuracion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="27dp"
+            android:autofillHints=""
+            android:hint="@string/duraci_n"
+            android:inputType="numberDecimal"
+            android:minHeight="48dp"
+            android:textColorHint="#90CAF9"
+            android:visibility="invisible"/>
+
+        <EditText
+            android:id="@+id/editTextDescansoCiclo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="27dp"
+            android:autofillHints=""
+            android:hint="@string/descanso_por_ciclo"
+            android:inputType="numberDecimal"
+            android:minHeight="48dp"
+            android:textColorHint="#BBDEFB" />
+
+        <EditText
+            android:id="@+id/editTextCiclos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="27dp"
+            android:autofillHints=""
+            android:hint="@string/ciclos"
+            android:inputType="number"
+            android:minHeight="48dp"
+            android:textColorHint="#BBDEFB" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="27dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnCancelarFormSerie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/cancelar" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/btnAceptarFormSerie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/aceptar" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

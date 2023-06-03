@@ -32,6 +32,7 @@ public class FormularioEjercicio extends AppCompatActivity {
         btnAceptar = findViewById(R.id.btnAceptarFormEjer);
         btnCancelar = findViewById(R.id.btnCancelarFormEjer);
         autoCompleteTextView = findViewById(R.id.autoCompGrupo);
+
         baseDatos = Room.databaseBuilder(
                 getApplicationContext(),
                 BaseDatos.class,
