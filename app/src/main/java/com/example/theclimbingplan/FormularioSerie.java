@@ -78,7 +78,7 @@ public class FormularioSerie extends AppCompatActivity {
                         Serie serie = new Serie(idEjercicio,nombre,repeticiones,descanso, ciclos);
                         baseDatos.daoSerie().insertarSerie(serie);
                         Toast.makeText(FormularioSerie.this, "Serie creada con éxito", Toast.LENGTH_LONG).show();
-                        irCrearSerie();
+                        irFormularioEntrenamiento(serie);
                     }
                 }
                 if(radioGroupSeleccion.getCheckedRadioButtonId() == R.id.radioDuracion){
@@ -89,7 +89,7 @@ public class FormularioSerie extends AppCompatActivity {
                         Serie serie = new Serie(idEjercicio,nombre,duracion,descanso, ciclos);
                         baseDatos.daoSerie().insertarSerie(serie);
                         Toast.makeText(FormularioSerie.this, "Serie creada con éxito", Toast.LENGTH_LONG).show();
-                        irCrearSerie();
+                        irFormularioEntrenamiento(serie);
                     }
                 }
                 else{
@@ -108,6 +108,15 @@ public class FormularioSerie extends AppCompatActivity {
 
     public void irCrearSerie(){
         Intent intencion = new Intent(FormularioSerie.this, CrearSerie.class);
+        startActivity(intencion);
+    }
+
+    public void irFormularioEntrenamiento(Serie serie){
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("serie", serie);
+        Intent intencion = new Intent(FormularioSerie.this, FormularioEntrenamiento.class);
+        intencion.putExtras(bundle);
+        setResult(RESULT_OK, intencion);
         startActivity(intencion);
     }
 

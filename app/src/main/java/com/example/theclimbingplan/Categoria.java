@@ -5,10 +5,12 @@ import androidx.room.Entity;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 
 @Entity(indices = {@Index(value = {"nombre"},
         unique = true)})
-public class Categoria {
+public class Categoria implements Serializable {
     @PrimaryKey(autoGenerate = true)
     public int idCategoria;
     @NonNull

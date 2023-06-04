@@ -66,8 +66,8 @@ public class CrearSerie extends AppCompatActivity {
     }
 
     private List<Ejercicio> buscarEjercicioPorGrupo(String grupo){
-            Grupo g = baseDatos.daoGrupo().consultarGruposPorNombre(grupo);
-            return baseDatos.daoEjercicio().consultarEjercicioPorGrupo(g.getIdGrupo());
+        Grupo g = baseDatos.daoGrupo().consultarGruposPorNombre(grupo);
+        return baseDatos.daoEjercicio().consultarEjercicioPorGrupo(g.getIdGrupo());
     }
 
     private void agregarEjercicios(List<Ejercicio> listaEjercicios){
@@ -75,7 +75,6 @@ public class CrearSerie extends AppCompatActivity {
         for(Ejercicio e : listaEjercicios){
             // Inflar la vista del ejercicio desde un archivo XML de diseño
             View ejerView = getLayoutInflater().inflate(R.layout.item_ejercicio, null);
-
 
             // Configurar la vista de la ejercicio con los datos correspondientes
             TextView tvNombreEjer = ejerView.findViewById(R.id.tvNombreEjer);
@@ -108,6 +107,8 @@ public class CrearSerie extends AppCompatActivity {
         Intent intencion = new Intent(CrearSerie.this, FormularioEjercicio.class);
         startActivity(intencion);
     }
+
+
 
     public void adapterSpinnerGrupo(){
         List<String> listaGrupos = new ArrayList<>();

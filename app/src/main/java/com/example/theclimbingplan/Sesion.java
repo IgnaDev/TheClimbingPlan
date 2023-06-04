@@ -6,6 +6,8 @@ import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity(foreignKeys = {@ForeignKey(entity = Categoria.class,
         parentColumns = "idCategoria",
         childColumns = "idCategoria",
@@ -14,7 +16,7 @@ import androidx.room.PrimaryKey;
         indices = {@Index(value = {"nombre"},
                 unique = true)})
 
-public class Sesion {
+public class Sesion implements Serializable {
     @PrimaryKey(autoGenerate = true)
     public int idSesion;
     @NonNull
@@ -37,9 +39,6 @@ public class Sesion {
     public String Serie6;
     public String Serie7;
     public String Serie8;
-
-
-
 
 
 }

@@ -7,6 +7,7 @@ import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverter;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity(foreignKeys = {@ForeignKey(entity = Sesion.class,
@@ -16,7 +17,7 @@ import java.util.Date;
         onUpdate = 5)},
         primaryKeys = {"idSesion", "fechaRealizacion"})
 
-public class Historico {
+public class Historico implements Serializable {
     @NonNull
     public int idSesion;
     @NonNull

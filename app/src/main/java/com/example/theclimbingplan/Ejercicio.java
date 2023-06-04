@@ -7,6 +7,8 @@ import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity(foreignKeys = {@ForeignKey(entity = Grupo.class,
         parentColumns = "idGrupo",
         childColumns = "idGrupo",
@@ -14,7 +16,7 @@ import androidx.room.PrimaryKey;
         onUpdate = 5)},
         indices = {@Index(value = {"nombre"},
                 unique = true)})
-public class Ejercicio {
+public class Ejercicio implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     public int idEjercicio;
