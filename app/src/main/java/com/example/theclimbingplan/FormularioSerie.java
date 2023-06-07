@@ -44,6 +44,7 @@ public class FormularioSerie extends AppCompatActivity {
 
         Bundle b=getIntent().getExtras();
         String nombre = b.getString("nombre");
+        int idSesion = Integer.parseInt(b.getString("idSesion"));
         tvEjercicio.setText(nombre);
         int idEjercicio = baseDatos.daoEjercicio().consultarIDEjercicioPorNombre(nombre);
 
@@ -76,7 +77,9 @@ public class FormularioSerie extends AppCompatActivity {
                     }
                     else{
                         Serie serie = new Serie(idEjercicio,nombre,repeticiones,descanso, ciclos);
+                        SerieSesion ss = new SerieSesion(serie.nombre, idSesion);
                         baseDatos.daoSerie().insertarSerie(serie);
+                        baseDatos.daoSerieSesion().insertarSerieSesion(ss);
                         Toast.makeText(FormularioSerie.this, "Serie creada con éxito", Toast.LENGTH_LONG).show();
                         irFormularioEntrenamiento(serie);
                     }
@@ -87,7 +90,9 @@ public class FormularioSerie extends AppCompatActivity {
                     }
                     else{
                         Serie serie = new Serie(idEjercicio,nombre,duracion,descanso, ciclos);
+                        SerieSesion ss = new SerieSesion(serie.nombre, idSesion);
                         baseDatos.daoSerie().insertarSerie(serie);
+                        baseDatos.daoSerieSesion().insertarSerieSesion(ss);
                         Toast.makeText(FormularioSerie.this, "Serie creada con éxito", Toast.LENGTH_LONG).show();
                         irFormularioEntrenamiento(serie);
                     }

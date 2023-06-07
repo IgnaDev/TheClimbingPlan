@@ -41,4 +41,9 @@ public class Sesion implements Serializable {
     public String Serie8;
 
 
+    public Sesion(String nombre, String descripcion, int idCategoria) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.idCategoria = idCategoria;
+    }
 }

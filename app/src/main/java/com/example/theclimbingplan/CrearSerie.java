@@ -37,6 +37,9 @@ public class CrearSerie extends AppCompatActivity {
                 "@DBPruebas"
         ).allowMainThreadQueries().build();
         setTitle("Crear Serie");
+
+
+
         adapterSpinnerGrupo();
         spinnerGrupo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -86,7 +89,9 @@ public class CrearSerie extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     String nombreEjercicio = e.nombre;
-                    elegirEjercicio(nombreEjercicio);
+                    Bundle b=getIntent().getExtras();
+                    int idSesion = Integer.parseInt(b.getString("idSesion"));
+                    elegirEjercicio(nombreEjercicio, idSesion);
                 }
             });
 
@@ -95,10 +100,11 @@ public class CrearSerie extends AppCompatActivity {
         }
     }
 
-    public void elegirEjercicio(String nombreEjercicio){
+    public void elegirEjercicio(String nombreEjercicio, int idSesion){
         Intent intent = new Intent(CrearSerie.this, FormularioSerie.class);
         Bundle bundle = new Bundle();
         bundle.putString("nombre", nombreEjercicio);
+        bundle.putString("idSesion", String.valueOf(idSesion));
         intent.putExtras(bundle);
         startActivity(intent);
     }

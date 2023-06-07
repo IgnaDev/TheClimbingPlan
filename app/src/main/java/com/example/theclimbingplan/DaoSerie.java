@@ -16,7 +16,7 @@ public interface DaoSerie {
     List<Serie> consultarTodasSeries();
 
     @Query("SELECT * FROM Serie Where nombre = :nombre")
-    List<Serie> consultarSeriePorNombre(String nombre);
+    Serie consultarSeriePorNombre(String nombre);
 
     @Query("SELECT nombre FROM Serie ORDER BY nombre")
     List<String> consultarNombreSeries();
