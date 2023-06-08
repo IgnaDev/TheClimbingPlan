@@ -7,10 +7,10 @@ import androidx.room.TypeConverters;
 
 @Database(
         entities = {Categoria.class, Ejercicio.class, Grupo.class, Historico.class, Serie.class, Sesion.class, SerieSesion.class},
-        version = 4,
+        version = 5,
         exportSchema = true,
         autoMigrations = {
-                @AutoMigration(from = 3, to = 4)}
+                @AutoMigration(from = 4, to = 5)}
 )
 @TypeConverters({Converters.class})
 public abstract class BaseDatos extends RoomDatabase {

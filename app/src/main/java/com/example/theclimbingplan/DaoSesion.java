@@ -20,6 +20,9 @@ public interface DaoSesion {
     @Query("SELECT * FROM Sesion WHERE nombre =:nombre")
     Sesion consultarSesionesPorNombre(String nombre);
 
+    @Query("SELECT idSesion FROM Sesion WHERE nombre =:nombre")
+    int consultaridPorNombre(String nombre);
+
     @Query("SELECT * FROM Sesion WHERE idCategoria =:idCategoria")
     List<Sesion> consultarSesionesPorCategoria(int idCategoria);
 

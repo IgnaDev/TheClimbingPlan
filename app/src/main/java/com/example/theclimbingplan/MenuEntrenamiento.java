@@ -1,6 +1,7 @@
 package com.example.theclimbingplan;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.widget.Button;
 public class MenuEntrenamiento extends AppCompatActivity {
 
     Button btnRealizarEntrenamiento, btnCrearEntrenamiento;
+    BaseDatos baseDatos;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,9 +19,17 @@ public class MenuEntrenamiento extends AppCompatActivity {
         btnRealizarEntrenamiento = findViewById(R.id.btnRealizarEntrenamiento);
         btnCrearEntrenamiento = findViewById(R.id.btnCrearSesion);
         setTitle("Entrenamiento");
+        baseDatos = Room.databaseBuilder(
+                getApplicationContext(),
+                BaseDatos.class,
+                "@DBPruebas"
+        ).allowMainThreadQueries().build();
         btnRealizarEntrenamiento.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {irRealizarEntrenamiento();   }
+            public void onClick(View v) {
+                //baseDatos.daoSesion().insertarSesion(new Sesion("aasdd", "aadd", 2));
+                irRealizarEntrenamiento();
+            }
         });
 
         btnCrearEntrenamiento.setOnClickListener(new View.OnClickListener() {

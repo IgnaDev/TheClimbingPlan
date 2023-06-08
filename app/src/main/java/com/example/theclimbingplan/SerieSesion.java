@@ -3,19 +3,21 @@ package com.example.theclimbingplan;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.PrimaryKey;
 
-@Entity(primaryKeys = {"nombreSerie", "idSesion"},
-        foreignKeys = {
-                @ForeignKey(entity = Serie.class, parentColumns = "nombre", childColumns = "nombreSerie"),
-                @ForeignKey(entity = Sesion.class, parentColumns = "idSesion", childColumns = "idSesion")
-        })
-public class SerieSesion {
+import java.io.Serializable;
+
+@Entity
+public class SerieSesion implements Serializable {
+
+    @PrimaryKey(autoGenerate = true)
+    public int idSerieSesion;
     @NonNull
     public String nombreSerie;
     @NonNull
     public int idSesion;
 
-    public SerieSesion(String nombreSerie, int idSesion) {
+    public SerieSesion(@NonNull String nombreSerie, int idSesion) {
         this.nombreSerie = nombreSerie;
         this.idSesion = idSesion;
     }

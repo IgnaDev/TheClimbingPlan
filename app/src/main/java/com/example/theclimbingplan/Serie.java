@@ -103,4 +103,13 @@ public class Serie implements Serializable {
     public void setCiclos(int ciclos) {
         this.ciclos = ciclos;
     }
+
+    @NonNull
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(@NonNull String nombre) {
+        this.nombre = nombre;
+    }
 }

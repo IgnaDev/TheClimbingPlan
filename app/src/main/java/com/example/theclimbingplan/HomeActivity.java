@@ -54,6 +54,7 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
     public void irSesion(){
+
         Intent intent = new Intent(this, MenuEntrenamiento.class);
         startActivity(intent);
     }

@@ -15,7 +15,7 @@ public interface DaoCategoria {
     List<Categoria> consultarTodasCategorias();
 
     @Query("SELECT * FROM Categoria WHERE nombre = :nombre")
-    List<Categoria> consultarCategoriasPorNombre(String nombre);
+    Categoria consultarCategoriasPorNombre(String nombre);
 
     @Insert
     void insertarCategoria(Categoria...categorias);

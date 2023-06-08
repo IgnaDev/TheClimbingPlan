@@ -40,6 +40,7 @@ public class FormularioEjercicio extends AppCompatActivity {
         ).allowMainThreadQueries().build();
         setTitle("Formulario Ejercicio");
         List<String> listaGrupos = nombresGrupos();
+        ArrayList<String> listaSeries = new ArrayList<>();
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, listaGrupos);
         autoCompleteTextView.setAdapter(adapter);
@@ -81,7 +82,7 @@ public class FormularioEjercicio extends AppCompatActivity {
                         insertarEjercicio(nombre, descripcion, idGrupo);
                         //toast exito
                         Toast.makeText(FormularioEjercicio.this, "Ejercicio creado", Toast.LENGTH_LONG).show();
-                        irCrearSerie();
+                        irCrearSerie(listaSeries);
                     }
                 }
             }
@@ -90,13 +91,16 @@ public class FormularioEjercicio extends AppCompatActivity {
         btnCancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                irCrearSerie();
+                irCrearSerie(listaSeries);
             }
         });
     }
 
-    public void irCrearSerie(){
+    public void irCrearSerie(ArrayList<String> listaSeries){
         Intent intencion = new Intent(FormularioEjercicio.this, CrearSerie.class);
+        Bundle bundle = new Bundle();
+        bundle.putStringArrayList("listaSeries", listaSeries);
+        intencion.putExtras(bundle);
         startActivity(intencion);
     }
 

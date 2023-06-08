@@ -28,22 +28,43 @@ public class Sesion implements Serializable {
     public int idCategoria;
 
 
-    public String calentamiento1;
-    public String calentamiento2;
-    public String calentamiento3;
-    public String Serie1;
-    public String Serie2;
-    public String Serie3;
-    public String Serie4;
-    public String Serie5;
-    public String Serie6;
-    public String Serie7;
-    public String Serie8;
-
 
     public Sesion(String nombre, String descripcion, int idCategoria) {
         this.nombre = nombre;
         this.descripcion = descripcion;
+        this.idCategoria = idCategoria;
+    }
+
+    public int getIdSesion() {
+        return idSesion;
+    }
+
+    public void setIdSesion(int idSesion) {
+        this.idSesion = idSesion;
+    }
+
+    @NonNull
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(@NonNull String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public int getIdCategoria() {
+        return idCategoria;
+    }
+
+    public void setIdCategoria(int idCategoria) {
         this.idCategoria = idCategoria;
     }
 }

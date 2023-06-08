@@ -13,6 +13,10 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 public class FormularioSerie extends AppCompatActivity {
     RadioGroup radioGroupSeleccion;
     TextView tvEjercicio;
@@ -44,7 +48,8 @@ public class FormularioSerie extends AppCompatActivity {
 
         Bundle b=getIntent().getExtras();
         String nombre = b.getString("nombre");
-        int idSesion = Integer.parseInt(b.getString("idSesion"));
+        Intent intent = getIntent();
+        ArrayList<String> listaSeries =intent.getStringArrayListExtra("listaSeries");
         tvEjercicio.setText(nombre);
         int idEjercicio = baseDatos.daoEjercicio().consultarIDEjercicioPorNombre(nombre);
 
@@ -77,11 +82,10 @@ public class FormularioSerie extends AppCompatActivity {
                     }
                     else{
                         Serie serie = new Serie(idEjercicio,nombre,repeticiones,descanso, ciclos);
-                        SerieSesion ss = new SerieSesion(serie.nombre, idSesion);
+                        listaSeries.add(serie.getNombre());
                         baseDatos.daoSerie().insertarSerie(serie);
-                        baseDatos.daoSerieSesion().insertarSerieSesion(ss);
                         Toast.makeText(FormularioSerie.this, "Serie creada con éxito", Toast.LENGTH_LONG).show();
-                        irFormularioEntrenamiento(serie);
+                        irFormularioEntrenamiento(serie, listaSeries);
                     }
                 }
                 if(radioGroupSeleccion.getCheckedRadioButtonId() == R.id.radioDuracion){
@@ -90,11 +94,10 @@ public class FormularioSerie extends AppCompatActivity {
                     }
                     else{
                         Serie serie = new Serie(idEjercicio,nombre,duracion,descanso, ciclos);
-                        SerieSesion ss = new SerieSesion(serie.nombre, idSesion);
+                        listaSeries.add(serie.getNombre());
                         baseDatos.daoSerie().insertarSerie(serie);
-                        baseDatos.daoSerieSesion().insertarSerieSesion(ss);
                         Toast.makeText(FormularioSerie.this, "Serie creada con éxito", Toast.LENGTH_LONG).show();
-                        irFormularioEntrenamiento(serie);
+                        irFormularioEntrenamiento(serie, listaSeries);
                     }
                 }
                 else{
@@ -116,9 +119,10 @@ public class FormularioSerie extends AppCompatActivity {
         startActivity(intencion);
     }
 
-    public void irFormularioEntrenamiento(Serie serie){
+    public void irFormularioEntrenamiento(Serie serie, ArrayList<String> listaSeries){
         Bundle bundle = new Bundle();
         bundle.putSerializable("serie", serie);
+        bundle.putStringArrayList("listaSeries", listaSeries);
         Intent intencion = new Intent(FormularioSerie.this, FormularioEntrenamiento.class);
         intencion.putExtras(bundle);
         setResult(RESULT_OK, intencion);

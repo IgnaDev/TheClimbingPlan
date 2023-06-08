@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +38,8 @@ public class CrearSerie extends AppCompatActivity {
                 "@DBPruebas"
         ).allowMainThreadQueries().build();
         setTitle("Crear Serie");
-
+        Intent intent = getIntent();
+        ArrayList<String> listaSeries =  intent.getStringArrayListExtra("listaSeries");
 
 
         adapterSpinnerGrupo();
@@ -46,20 +48,20 @@ public class CrearSerie extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String grupo = spinnerGrupo.getSelectedItem().toString();
                     listaEjercicios = buscarEjercicioPorGrupo(grupo);
-                    agregarEjercicios(listaEjercicios);
+                    agregarEjercicios(listaEjercicios, listaSeries);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 listaEjercicios = buscarTodosEjercicios();
-                agregarEjercicios(listaEjercicios);
+                agregarEjercicios(listaEjercicios, listaSeries);
             }
         });
 
         btnCrearEjercicio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                irFormularioEjercicio();
+                irFormularioEjercicio(listaSeries);
             }
         });
 
@@ -73,7 +75,7 @@ public class CrearSerie extends AppCompatActivity {
         return baseDatos.daoEjercicio().consultarEjercicioPorGrupo(g.getIdGrupo());
     }
 
-    private void agregarEjercicios(List<Ejercicio> listaEjercicios){
+    private void agregarEjercicios(List<Ejercicio> listaEjercicios,  ArrayList<String> listaSeries){
         ejerLayout.removeAllViews();
         for(Ejercicio e : listaEjercicios){
             // Inflar la vista del ejercicio desde un archivo XML de diseño
@@ -89,9 +91,7 @@ public class CrearSerie extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     String nombreEjercicio = e.nombre;
-                    Bundle b=getIntent().getExtras();
-                    int idSesion = Integer.parseInt(b.getString("idSesion"));
-                    elegirEjercicio(nombreEjercicio, idSesion);
+                    elegirEjercicio(nombreEjercicio, listaSeries);
                 }
             });
 
@@ -100,18 +100,21 @@ public class CrearSerie extends AppCompatActivity {
         }
     }
 
-    public void elegirEjercicio(String nombreEjercicio, int idSesion){
+    public void elegirEjercicio(String nombreEjercicio, ArrayList<String> listaSeries){
         Intent intent = new Intent(CrearSerie.this, FormularioSerie.class);
         Bundle bundle = new Bundle();
         bundle.putString("nombre", nombreEjercicio);
-        bundle.putString("idSesion", String.valueOf(idSesion));
+        bundle.putStringArrayList("listaSeries", listaSeries);
         intent.putExtras(bundle);
         startActivity(intent);
     }
 
-    public void irFormularioEjercicio(){
-        Intent intencion = new Intent(CrearSerie.this, FormularioEjercicio.class);
-        startActivity(intencion);
+    public void irFormularioEjercicio(ArrayList<String> listaSeries){
+        Intent intent = new Intent(CrearSerie.this, FormularioEjercicio.class);
+        Bundle bundle = new Bundle();
+        bundle.putStringArrayList("listaSeries", listaSeries);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
 

@@ -1,6 +1,5 @@
 package com.example.theclimbingplan;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
@@ -12,26 +11,29 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FormularioEntrenamiento extends AppCompatActivity {
     LinearLayout seriesLayout;
     EditText etNombreEntrenamiento, etDescripcionEntrenamiento;
-    Spinner spinnerCategoría;
+    Spinner spinnerCategoria;
     BaseDatos baseDatos;
     LinearLayout serieLayout;
     FloatingActionButton btnCrearCategoria, btnAddSerie;
     Button btnAddSeries, btnVolverFormularioEntr, btnAceptarFormuEntre;
     //private static final int CREATE_SERIE_REQUEST = 1;
     private List<Serie> seriesList = new ArrayList<>();
+    ArrayList<String> listaNombresSeries = new ArrayList<>();
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +41,13 @@ public class FormularioEntrenamiento extends AppCompatActivity {
         setContentView(R.layout.activity_formulario_entrenamiento);
         etNombreEntrenamiento = findViewById(R.id.etNombreEntrenamiento);
         etDescripcionEntrenamiento = findViewById(R.id.etDescripcionEntrenamiento);
-        spinnerCategoría = findViewById(R.id.spinnerCategoria);
+        spinnerCategoria = findViewById(R.id.spinnerCategoria);
         btnCrearCategoria = findViewById(R.id.btnCrearCategoria);
         btnAddSerie = findViewById(R.id.btnAddSerie);
         serieLayout = findViewById(R.id.seriesLayout);
         btnAddSeries = findViewById(R.id.btnAddSeries);
         seriesLayout = findViewById(R.id.seriesLayout);
+        btnAceptarFormuEntre = findViewById(R.id.btnAceptarFormuEntre);
         setTitle("Formulario Entrenamiento");
         baseDatos = Room.databaseBuilder(
                 getApplicationContext(),
@@ -54,7 +57,8 @@ public class FormularioEntrenamiento extends AppCompatActivity {
 //TODO botón eliminar serie
         //TODO añadir serie existente
         //TODO crear tabla intermedia serie sesion
-        getBundleSerie(seriesList);
+        getBundleSerie(listaNombresSeries);
+        addNombresSeries(listaNombresSeries);
         //CATEGORIA
         adapterSpinnerCategoria();
 
@@ -68,7 +72,7 @@ public class FormularioEntrenamiento extends AppCompatActivity {
         btnAddSeries.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                comprobarAddSerie();
+                irCrearSerie(listaNombresSeries);
             }
         });
 
@@ -76,12 +80,22 @@ public class FormularioEntrenamiento extends AppCompatActivity {
         btnAddSerie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                irCrearSerie(getidSesionActual(etNombreEntrenamiento.getText().toString()));
+                irCrearSerie(listaNombresSeries);
+            }
+        });
+
+        btnAceptarFormuEntre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                crearSesion(seriesList);
             }
         });
 
     }
 
+    public void addNombresSeries(ArrayList<String> listaNombresSeries){
+
+    }
     public int getidSesionActual(String nombre){
         return baseDatos.daoSesion().consultarSesionesPorNombre(nombre).idSesion;
     }
@@ -90,26 +104,29 @@ public class FormularioEntrenamiento extends AppCompatActivity {
         listaCategorias = baseDatos.daoCategoria().consultarNombresCategorias();
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listaCategorias);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerCategoría.setAdapter(adapter);
+        spinnerCategoria.setAdapter(adapter);
     }
 
     public List<SerieSesion> getSeriesSesion(int idSesion){
         return baseDatos.daoSerieSesion().obtenerSeriesPorSesion(idSesion);
     }
 
-    public void irCrearSerie(int idSesion){
+    public void irCrearSerie(ArrayList<String> listaNombresSeries){
+
         Intent intent = new Intent(this, CrearSerie.class);
         Bundle bundle = new Bundle();
-        bundle.putString("idSesion", String.valueOf(idSesion));
+        bundle.putStringArrayList("listaSeries", listaNombresSeries);
         intent.putExtras(bundle);
         startActivity(intent);
     }
 
-    public void getBundleSerie(List<Serie> seriesList) {
+    public void getBundleSerie(ArrayList<String> seriesList) {
             Bundle bundle = getIntent().getExtras();
             if (bundle != null) {
-                Serie serie = (Serie) bundle.getSerializable("serie");
-                seriesList.add(serie);
+                ArrayList<String> series = bundle.getStringArrayList("listaSeries");
+                for(String s: series){
+                    seriesList.add(s);
+                }
                 agregarSeries(seriesList);
             }
         }
@@ -119,14 +136,22 @@ public class FormularioEntrenamiento extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void agregarSeries(List<Serie> listaSeries){
-        for(Serie e : listaSeries){
+    public void irRealizarEntrenamiento(Sesion sesion){
+        Intent intent = new Intent(this, RealizarEntrenamiento.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("sesion", sesion);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
+    private void agregarSeries(ArrayList<String> listaSeries){
+        for(String e : listaSeries){
             // Inflar la vista del Serie desde un archivo XML de diseño
             View serieView = getLayoutInflater().inflate(R.layout.item_serie, null);
 
             // Configurar la vista de la Serie con los datos correspondientes
             TextView tvNombreSerie = serieView.findViewById(R.id.tvNombreSerie);
-            tvNombreSerie.setText(e.nombre);
+            tvNombreSerie.setText(e);
 
             // Obtener referencia al botón flotante "borrar"
             FloatingActionButton btnDeleteSerie = serieView.findViewById(R.id.btnDeleteSerie);
@@ -157,11 +182,11 @@ public class FormularioEntrenamiento extends AppCompatActivity {
         return existe;
     }
 
-    public void comprobarAddSerie(){
+    public void crearSesion(List<Serie> listaSeries){
         String nombre = etNombreEntrenamiento.getText().toString();
         String descripcion = etDescripcionEntrenamiento.getText().toString();
-        Categoria categoria = (Categoria) spinnerCategoría.getSelectedItem();
-        if(nombre.isEmpty() || descripcion.isEmpty() || categoria == null){
+        String nombrecategoria = (String) spinnerCategoria.getSelectedItem();
+        if(nombre.isEmpty() || descripcion.isEmpty() || nombrecategoria.isEmpty()){
             Toast.makeText(FormularioEntrenamiento.this, "Debe rellenar todos los campos para continuar", Toast.LENGTH_LONG).show();
         }
         else{
@@ -170,14 +195,31 @@ public class FormularioEntrenamiento extends AppCompatActivity {
                 Toast.makeText(FormularioEntrenamiento.this, "Ya existe un entrenamiento con ese nombre", Toast.LENGTH_LONG).show();
             }
             else{
-                Sesion sesion = new Sesion(nombre, descripcion, categoria.idCategoria);
-                baseDatos.daoSesion().insertarSesion(sesion);
-                irCrearSerie(sesion.idSesion);
-                btnAddSerie.setVisibility(View.VISIBLE);
+                if(listaNombresSeries.size() <= 0){
+                    Toast.makeText(FormularioEntrenamiento.this, "Debe añadior al menos una serie al entrenamiento", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    Categoria categoria = baseDatos.daoCategoria().consultarCategoriasPorNombre(nombrecategoria);
+                    Sesion sesion = new Sesion(nombre, descripcion, categoria.getIdCategoria());
+                    baseDatos.daoSesion().insertarSesion(sesion);
+                    int idSesion = baseDatos.daoSesion().consultaridPorNombre(sesion.getNombre());
+                    for(String n:listaNombresSeries){
+                        Serie serie = baseDatos.daoSerie().consultarSeriePorNombre(n);
+                        listaSeries.add(serie);
+                    }
+                    for (Serie s : listaSeries) {
+                        //baseDatos.daoSerie().insertarSerie(s);
+                        SerieSesion ss = new SerieSesion(s.getNombre(), idSesion);
+                        baseDatos.daoSerieSesion().insertarSerieSesion(ss);
+                    }
+                    irRealizarEntrenamiento(sesion);
+                }
+                //irCrearSerie(sesion.idSesion);
+                //btnAddSerie.setVisibility(View.VISIBLE);
             }
         }
     }
-
+/*
     private List<Serie> listaSeriesPorSesion(int idSesion){
         List<SerieSesion> listaSS = baseDatos.daoSerieSesion().obtenerSeriesPorSesion(idSesion);
         List<Serie> listaSeries = new ArrayList<>();
@@ -216,4 +258,6 @@ public class FormularioEntrenamiento extends AppCompatActivity {
     public void eliminarSerieSesion(SerieSesion serieSesion){
         baseDatos.daoSerieSesion().eliminarSerieSesion(serieSesion);
     }
+
+ */
 }
