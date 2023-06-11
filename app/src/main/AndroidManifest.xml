@@ -13,84 +13,84 @@
         android:theme="@style/Theme.TheClimbingPlan"
         tools:targetApi="31">
         <activity
-            android:name=".FormularioSerie"
+            android:name=".Activities.FormularioSerie"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".CrearSerie"
+            android:name=".Activities.CrearSerie"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".CrearCategoria"
+            android:name=".Activities.CrearCategoria"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".HomeActivity"
+            android:name=".Activities.HomeActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".ConsultaHistorico"
+            android:name=".Activities.ConsultaHistorico"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".RealizarEntrenamiento"
+            android:name=".Activities.RealizarEntrenamiento"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".FormularioEntrenamiento"
+            android:name=".Activities.FormularioEntrenamiento"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".FormularioEjercicio"
+            android:name=".Activities.FormularioEjercicio"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".MenuHistorico"
+            android:name=".Activities.MenuHistorico"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".MenuEjercicio"
+            android:name=".Activities.MenuEjercicio"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".MenuEntrenamiento"
+            android:name=".Activities.MenuEntrenamiento"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".AuthActivity"
+            android:name=".Activities.AuthActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

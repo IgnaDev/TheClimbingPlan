@@ -28,4 +28,8 @@
     <string name="introducir_repeticiones">Introducir Repeticiones</string>
     <string name="ejercicio">Ejercicio</string>
     <string name="a_adir_series">Añadir Series</string>
+    <string name="categoria">Categoria</string>
+    <string name="sesi_n_de_enternamiento">Sesión de Enternamiento</string>
+    <string name="serie">Serie</string>
+    <string name="_00_00_00">00:00:00</string>
 </resources>

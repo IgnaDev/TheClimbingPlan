@@ -2,15 +2,191 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constrLO"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RealizarEntrenamiento">
+    android:background="@drawable/fondocolor"
+    tools:context=".Activities.RealizarEntrenamiento">
 
-    <com.google.android.material.chip.ChipGroup
-        android:layout_width="238dp"
-        android:layout_height="144dp"
-        tools:layout_editor_absoluteX="68dp"
-        tools:layout_editor_absoluteY="142dp">
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck">
 
-    </com.google.android.material.chip.ChipGroup>
+        <LinearLayout
+            android:id="@+id/linearSeleccion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="invisible">
+
+            <TextView
+                android:id="@+id/tvCategoria"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="27dp"
+                android:layout_weight="1"
+                android:text="@string/categoria"
+                android:textColor="#8C9EFF" />
+
+            <Spinner
+                android:id="@+id/spinnerCategoriaSesion"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:spinnerMode="dropdown"
+                tools:ignore="SpeakableTextPresentCheck,DuplicateSpeakableTextCheck" />
+
+            <TextView
+                android:id="@+id/tvSesion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="27dp"
+                android:layout_weight="1"
+                android:text="@string/sesi_n_de_enternamiento"
+                android:textColor="#B39DDB" />
+
+            <Spinner
+                android:id="@+id/spinnerSesion"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:spinnerMode="dropdown"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <Button
+                android:id="@+id/btnEmpezarEntreno"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Comenzar!"
+                tools:ignore="HardcodedText,VisualLintButtonSize" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutRealizar"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:orientation="vertical"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tvNombreSesionElegida"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="27dp"
+            android:text="@string/sesi_n_de_enternamiento"
+            android:textColor="#B39DDB" />
+
+        <TextView
+            android:id="@+id/tvNombreSerieActiva"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="27dp"
+            android:text="@string/serie"
+            android:textColor="#9E9E9E" />
+
+        <TextView
+            android:id="@+id/tvEjerSerie"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ejercicio"
+            android:textColor="#90A4AE" />
+
+        <TextView
+            android:id="@+id/chronometer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/blanco"
+            android:textSize="60sp">
+
+        </TextView>
+
+        <ProgressBar
+            android:id="@+id/progress_circular"
+            android:layout_width="270dp"
+            android:layout_height="270dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="27dp"
+            android:background="@drawable/circulo2"
+            android:indeterminate="false"
+            android:max="100"
+            android:progress="100"
+            android:progressDrawable="@drawable/circulo1"
+            android:rotation="-90"></ProgressBar>
+
+        <TextView
+            android:id="@+id/tvTempo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/_00_00_00"
+            android:textColor="@color/verde"
+            android:textSize="30sp"></TextView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="27dp"
+            android:layout_marginRight="60dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnPlay"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:background="@drawable/play"
+                android:gravity="center"
+                tools:ignore="SpeakableTextPresentCheck"
+                ></Button>
+
+            <Button
+                android:id="@+id/btnPause"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="23dp"
+                android:background="@drawable/pause"
+                android:gravity="center_horizontal|center_vertical"
+                tools:ignore="SpeakableTextPresentCheck"
+                ></Button>
+
+            <Button
+                android:id="@+id/btnReset"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center|right"
+                android:layout_marginLeft="23dp"
+                android:background="@drawable/reset"
+                android:gravity="center_horizontal|center_vertical"
+                tools:ignore="RtlHardcoded,SpeakableTextPresentCheck"
+                ></Button>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

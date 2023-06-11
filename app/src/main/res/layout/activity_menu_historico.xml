@@ -6,6 +6,6 @@
     android:layout_height="match_parent"
     android:background="@drawable/fondocolor"
     android:backgroundTint="@color/claro"
-    tools:context=".MenuHistorico">
+    tools:context=".Activities.MenuHistorico">
 
 </androidx.constraintlayout.widget.ConstraintLayout>

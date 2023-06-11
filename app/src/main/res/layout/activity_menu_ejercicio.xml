@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/fondocolor"
     android:backgroundTint="@color/claro"
-    tools:context=".MenuEjercicio">
+    tools:context=".Activities.MenuEjercicio">
 
     <Button
         android:id="@+id/btnCrearEjercicio"

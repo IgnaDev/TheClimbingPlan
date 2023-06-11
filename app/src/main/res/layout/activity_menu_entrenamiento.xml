@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/fondocolor"
     android:backgroundTint="@color/claro"
-    tools:context=".MenuEntrenamiento">
+    tools:context=".Activities.MenuEntrenamiento">
 
     <LinearLayout
         android:id="@+id/linearLayout3"
