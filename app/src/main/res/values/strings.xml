@@ -32,4 +32,7 @@
     <string name="sesi_n_de_enternamiento">Sesión de Enternamiento</string>
     <string name="serie">Serie</string>
     <string name="_00_00_00">00:00:00</string>
+    <string name="sig_ciclo">Sig. Ciclo</string>
+    <string name="sig_serie">Sig. Serie</string>
+    <string name="ciclos_restantes">Ciclos restantes:</string>
 </resources>

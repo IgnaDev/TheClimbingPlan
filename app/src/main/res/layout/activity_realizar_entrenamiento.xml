@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="invisible">
+            android:visibility="visible">
 
             <TextView
                 android:id="@+id/tvCategoria"
@@ -83,7 +83,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:orientation="vertical"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -109,81 +109,93 @@
             android:id="@+id/tvEjerSerie"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="27dp"
             android:text="@string/ejercicio"
             android:textColor="#90A4AE" />
+
+        <TextView
+            android:id="@+id/tvInfoRepes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/chronometer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="27dp"
             android:textColor="@color/blanco"
             android:textSize="60sp">
 
         </TextView>
 
-        <ProgressBar
-            android:id="@+id/progress_circular"
-            android:layout_width="270dp"
-            android:layout_height="270dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="27dp"
-            android:background="@drawable/circulo2"
-            android:indeterminate="false"
-            android:max="100"
-            android:progress="100"
-            android:progressDrawable="@drawable/circulo1"
-            android:rotation="-90"></ProgressBar>
-
-        <TextView
-            android:id="@+id/tvTempo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="@string/_00_00_00"
-            android:textColor="@color/verde"
-            android:textSize="30sp"></TextView>
-
         <LinearLayout
+            android:id="@+id/linearPlayPause"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="60dp"
             android:layout_marginTop="27dp"
             android:layout_marginRight="60dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="invisible">
 
             <Button
                 android:id="@+id/btnPlay"
+                style="@style/Widget.AppCompat.Button"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:layout_gravity="center"
                 android:background="@drawable/play"
                 android:gravity="center"
-                tools:ignore="SpeakableTextPresentCheck"
-                ></Button>
-
-            <Button
-                android:id="@+id/btnPause"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_gravity="center"
-                android:layout_marginStart="23dp"
-                android:background="@drawable/pause"
-                android:gravity="center_horizontal|center_vertical"
-                tools:ignore="SpeakableTextPresentCheck"
-                ></Button>
+                tools:ignore="SpeakableTextPresentCheck"></Button>
 
             <Button
                 android:id="@+id/btnReset"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:layout_gravity="center|right"
-                android:layout_marginLeft="23dp"
-                android:background="@drawable/reset"
+                android:layout_marginLeft="93dp"
+                android:background="@drawable/stop"
                 android:gravity="center_horizontal|center_vertical"
-                tools:ignore="RtlHardcoded,SpeakableTextPresentCheck"
-                ></Button>
+                tools:ignore="RtlHardcoded,SpeakableTextPresentCheck"></Button>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvInfoCiclos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ciclos_restantes" />
+
+        <TextView
+            android:id="@+id/tvCiclosRestantes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="27dp"
+            android:textColor="@color/blanco"
+            android:textSize="60sp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnNextCiclo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/sig_ciclo"
+                style="?android:attr/buttonBarButtonStyle" />
+
+            <Button
+                android:id="@+id/btnNextSerie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/sig_serie"
+                style="?android:attr/buttonBarButtonStyle" />
         </LinearLayout>
 
 

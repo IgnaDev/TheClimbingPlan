@@ -1,0 +1,391 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 3,
+    "identityHash": "616645edc3b6f51d57d2360c222d2098",
+    "entities": [
+      {
+        "tableName": "Categoria",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idCategoria` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nombre` TEXT NOT NULL, `descripcion` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "idCategoria",
+            "columnName": "idCategoria",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nombre",
+            "columnName": "nombre",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "descripcion",
+            "columnName": "descripcion",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "idCategoria"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_Categoria_nombre",
+            "unique": true,
+            "columnNames": [
+              "nombre"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_Categoria_nombre` ON `${TABLE_NAME}` (`nombre`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Ejercicio",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idEjercicio` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nombre` TEXT NOT NULL, `descripcion` TEXT, `idGrupo` INTEGER NOT NULL, FOREIGN KEY(`idGrupo`) REFERENCES `Grupo`(`idGrupo`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idEjercicio",
+            "columnName": "idEjercicio",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nombre",
+            "columnName": "nombre",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "descripcion",
+            "columnName": "descripcion",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "idGrupo",
+            "columnName": "idGrupo",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "idEjercicio"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_Ejercicio_nombre",
+            "unique": true,
+            "columnNames": [
+              "nombre"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_Ejercicio_nombre` ON `${TABLE_NAME}` (`nombre`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Grupo",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "idGrupo"
+            ],
+            "referencedColumns": [
+              "idGrupo"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "Grupo",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idGrupo` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nombre` TEXT NOT NULL, `descripcion` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "idGrupo",
+            "columnName": "idGrupo",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nombre",
+            "columnName": "nombre",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "descripcion",
+            "columnName": "descripcion",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "idGrupo"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_Grupo_nombre",
+            "unique": true,
+            "columnNames": [
+              "nombre"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_Grupo_nombre` ON `${TABLE_NAME}` (`nombre`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Historico",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idSesion` INTEGER NOT NULL, `fechaRealizacion` INTEGER NOT NULL, `puntuacion` INTEGER NOT NULL, `observaciones` TEXT, PRIMARY KEY(`idSesion`, `fechaRealizacion`), FOREIGN KEY(`idSesion`) REFERENCES `Sesion`(`idSesion`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idSesion",
+            "columnName": "idSesion",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fechaRealizacion",
+            "columnName": "fechaRealizacion",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "puntuacion",
+            "columnName": "puntuacion",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "observaciones",
+            "columnName": "observaciones",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "idSesion",
+            "fechaRealizacion"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "Sesion",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "idSesion"
+            ],
+            "referencedColumns": [
+              "idSesion"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "Serie",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`nombre` TEXT NOT NULL, `idEjercicio` INTEGER NOT NULL, `repeticiones` INTEGER NOT NULL, `duracion` REAL NOT NULL, `descansoCiclo` REAL NOT NULL, `ciclos` INTEGER NOT NULL, PRIMARY KEY(`nombre`), FOREIGN KEY(`idEjercicio`) REFERENCES `Ejercicio`(`idEjercicio`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "nombre",
+            "columnName": "nombre",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idEjercicio",
+            "columnName": "idEjercicio",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "repeticiones",
+            "columnName": "repeticiones",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "duracion",
+            "columnName": "duracion",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "descansoCiclo",
+            "columnName": "descansoCiclo",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ciclos",
+            "columnName": "ciclos",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "nombre"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_Serie_nombre",
+            "unique": true,
+            "columnNames": [
+              "nombre"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_Serie_nombre` ON `${TABLE_NAME}` (`nombre`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Ejercicio",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "idEjercicio"
+            ],
+            "referencedColumns": [
+              "idEjercicio"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "Sesion",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idSesion` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nombre` TEXT NOT NULL, `descripcion` TEXT, `idCategoria` INTEGER NOT NULL, FOREIGN KEY(`idCategoria`) REFERENCES `Categoria`(`idCategoria`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idSesion",
+            "columnName": "idSesion",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nombre",
+            "columnName": "nombre",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "descripcion",
+            "columnName": "descripcion",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "idCategoria",
+            "columnName": "idCategoria",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "idSesion"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_Sesion_nombre",
+            "unique": true,
+            "columnNames": [
+              "nombre"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_Sesion_nombre` ON `${TABLE_NAME}` (`nombre`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Categoria",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "idCategoria"
+            ],
+            "referencedColumns": [
+              "idCategoria"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "SerieSesion",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`nombreSerie` TEXT NOT NULL, `idSesion` INTEGER NOT NULL, PRIMARY KEY(`nombreSerie`, `idSesion`), FOREIGN KEY(`nombreSerie`) REFERENCES `Serie`(`nombre`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`idSesion`) REFERENCES `Sesion`(`idSesion`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "nombreSerie",
+            "columnName": "nombreSerie",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idSesion",
+            "columnName": "idSesion",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "nombreSerie",
+            "idSesion"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "Serie",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "nombreSerie"
+            ],
+            "referencedColumns": [
+              "nombre"
+            ]
+          },
+          {
+            "table": "Sesion",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idSesion"
+            ],
+            "referencedColumns": [
+              "idSesion"
+            ]
+          }
+        ]
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '616645edc3b6f51d57d2360c222d2098')"
+    ]
+  }
+}

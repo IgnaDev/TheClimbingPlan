@@ -45,7 +45,8 @@ public class FormularioEjercicio extends AppCompatActivity {
         ).allowMainThreadQueries().build();
         setTitle("Formulario Ejercicio");
         List<String> listaGrupos = nombresGrupos();
-        ArrayList<String> listaSeries = new ArrayList<>();
+        Intent intent = getIntent();
+        ArrayList<String> listaSeries =  intent.getStringArrayListExtra("listaSeries");
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, listaGrupos);
         autoCompleteTextView.setAdapter(adapter);

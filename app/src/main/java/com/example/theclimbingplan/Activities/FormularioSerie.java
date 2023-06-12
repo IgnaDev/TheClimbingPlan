@@ -26,6 +26,8 @@ public class FormularioSerie extends AppCompatActivity {
     BaseDatos baseDatos;
     Button btnAceptar, btnCancelar;
 
+    ArrayList<String> listaNombresSeries = new ArrayList<>();
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,11 +49,11 @@ public class FormularioSerie extends AppCompatActivity {
         ).allowMainThreadQueries().build();
 
         setTitle("Formulario Serie");
-
+        getBundleSerie();
         Bundle b=getIntent().getExtras();
         String nombre = b.getString("nombre");
         Intent intent = getIntent();
-        ArrayList<String> listaSeries =intent.getStringArrayListExtra("listaSeries");
+        //ArrayList<String> listaSeries =intent.getStringArrayListExtra("listaSeries");
         tvEjercicio.setText(nombre);
         int idEjercicio = baseDatos.daoEjercicio().consultarIDEjercicioPorNombre(nombre);
 
@@ -84,10 +86,10 @@ public class FormularioSerie extends AppCompatActivity {
                     }
                     else{
                         Serie serie = new Serie(idEjercicio,nombre,repeticiones,descanso, ciclos);
-                        listaSeries.add(serie.getNombre());
+                        listaNombresSeries.add(serie.getNombre());
                         baseDatos.daoSerie().insertarSerie(serie);
                         Toast.makeText(FormularioSerie.this, "Serie creada con éxito", Toast.LENGTH_LONG).show();
-                        irFormularioEntrenamiento(serie, listaSeries);
+                        irFormularioEntrenamiento(serie, listaNombresSeries);
                     }
                 }
                 if(radioGroupSeleccion.getCheckedRadioButtonId() == R.id.radioDuracion){
@@ -96,10 +98,10 @@ public class FormularioSerie extends AppCompatActivity {
                     }
                     else{
                         Serie serie = new Serie(idEjercicio,nombre,duracion,descanso, ciclos);
-                        listaSeries.add(serie.getNombre());
+                        listaNombresSeries.add(serie.getNombre());
                         baseDatos.daoSerie().insertarSerie(serie);
                         Toast.makeText(FormularioSerie.this, "Serie creada con éxito", Toast.LENGTH_LONG).show();
-                        irFormularioEntrenamiento(serie, listaSeries);
+                        irFormularioEntrenamiento(serie, listaNombresSeries);
                     }
                 }
                 else{
@@ -111,13 +113,28 @@ public class FormularioSerie extends AppCompatActivity {
         btnCancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                irCrearSerie();
+                irCrearSerie(listaNombresSeries);
             }
         });
     }
 
-    public void irCrearSerie(){
+    public void getBundleSerie() {
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            ArrayList<String> listaSeries =  bundle.getStringArrayList("listaSeries");
+            if(listaSeries.size() > 0){
+                for(String s: listaSeries){
+                    listaNombresSeries.add(s);
+                }
+            }
+        }
+    }
+
+    public void irCrearSerie(ArrayList<String> listaSeries){
         Intent intencion = new Intent(FormularioSerie.this, CrearSerie.class);
+        Bundle bundle = new Bundle();
+        bundle.putStringArrayList("listaSeries", listaSeries);
+        intencion.putExtras(bundle);
         startActivity(intencion);
     }
 

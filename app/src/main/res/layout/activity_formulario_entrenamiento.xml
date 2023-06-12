@@ -91,6 +91,12 @@
                 android:layout_height="wrap_content"
                 android:text="@string/a_adir_series" />
 
+            <TextView
+                android:id="@+id/tvPrueba"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

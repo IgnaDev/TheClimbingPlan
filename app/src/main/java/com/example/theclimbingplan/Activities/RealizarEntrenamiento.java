@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -25,18 +27,20 @@ import com.example.theclimbingplan.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RealizarEntrenamiento extends AppCompatActivity implements View.OnClickListener{
+public class RealizarEntrenamiento extends AppCompatActivity {
 
     Spinner spinnerCategoria, spinnerSesion;
     BaseDatos baseDatos;
     List<SerieSesion> listaSerieSesion = new ArrayList<>();
     List<Serie> listaSeries = new ArrayList<>();
-    LinearLayout linearSeleccion, linearLayoutRealizar;
-    TextView tvNombreSerieActiva, tvNombreSesionElegida, tvEjerSerie, tvCronometro;
-    Button btnEmpezar, btnPlay, btnPause, btnReset;
+    LinearLayout linearSeleccion, linearLayoutRealizar, linearPlayPause;
+    TextView tvNombreSerieActiva, tvNombreSesionElegida, tvEjerSerie, tvCronometro, tvCiclosRestantes, tvInfoRepes;
+    Button btnEmpezar, btnPlay, btnReset, btnNextSerie, btnNextCiclo;
 
+    boolean esDescanso = false;
     int contadorCiclos = 0;
     int contadorSeries = 0;
+    Serie serieActual;
     private CountDownTimer cuenta;
     private long tiempoRestante = 0;
     @SuppressLint("MissingInflatedId")
@@ -48,27 +52,18 @@ public class RealizarEntrenamiento extends AppCompatActivity implements View.OnC
         spinnerCategoria = findViewById(R.id.spinnerCategoriaSesion);
         linearSeleccion = findViewById(R.id.linearSeleccion);
         linearLayoutRealizar = findViewById(R.id.linearLayoutRealizar);
+        linearPlayPause = findViewById(R.id.linearPlayPause);
         tvNombreSerieActiva = findViewById(R.id.tvNombreSerieActiva);
         tvNombreSesionElegida = findViewById(R.id.tvNombreSesionElegida);
         tvEjerSerie = findViewById(R.id.tvEjerSerie);
+        tvInfoRepes = findViewById(R.id.tvInfoRepes);
         btnEmpezar = findViewById(R.id.btnEmpezarEntreno);
         tvCronometro = findViewById(R.id.chronometer);
+        tvCiclosRestantes = findViewById(R.id.tvCiclosRestantes);
         btnPlay = findViewById(R.id.btnPlay);
-        btnPause = findViewById(R.id.btnPause);
         btnReset = findViewById(R.id.btnReset);
-
-        /*
-        crono.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
-            @Override
-            public void onChronometerTick(Chronometer chronometer) {
-                if(SystemClock.elapsedRealtime() - crono.getBase() >= 60000){
-                    crono.setBase(SystemClock.elapsedRealtime());
-                }
-            }
-        });
-
-         */
-
+        btnNextSerie = findViewById(R.id.btnNextSerie);
+        btnNextCiclo = findViewById(R.id.btnNextCiclo);
         baseDatos = Room.databaseBuilder(
                 getApplicationContext(),
                 BaseDatos.class,
@@ -101,21 +96,38 @@ public class RealizarEntrenamiento extends AppCompatActivity implements View.OnC
                     Serie serie = baseDatos.daoSerie().consultarSeriePorNombre(ss.getNombreSerie());
                     listaSeries.add(serie);
                 }
-                empezarSesion(sesionElegida, listaSeries);
+                empezarSesion(sesionElegida);
             }
         });
 
         btnPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                iniciarCrono((float) 10.20);
+                //if cuenta null??
+                iniciarCrono(serieActual.getDuracion());
+                btnPlay.setEnabled(false);
             }
         });
 
-        btnPause.setOnClickListener(new View.OnClickListener() {
+        btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 pausarCrono();
+                btnPlay.setEnabled(true);
+            }
+        });
+
+        btnNextSerie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                nextSerie();
+            }
+        });
+
+        btnNextCiclo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                nextCiclo();
             }
         });
 
@@ -147,84 +159,142 @@ public class RealizarEntrenamiento extends AppCompatActivity implements View.OnC
     }
 
     //METEDOS CRONOMETRO
-    public void iniciarCrono(float tiempo){
-        int minutos = (int) tiempo;
-        int segundos = (int) (tiempo - minutos) * 60;
-        long valor;
-        valor = (minutos * 60 + segundos) * 1000; // Si no, calculamos el tiempo inicial
 
+    public long obtenerMilis(float tiempo){
+        int minutos = (int) tiempo;
+        int segundos = Math.round((tiempo - minutos) * 60);
+        return (minutos * 60 + segundos) * 1000;
+    }
+
+    public void mostrarTiempo(long l){
+        long tiempolong = l / 1000;
+        int minu = (int) tiempolong / 60;
+        long seg = tiempolong % 60;
+        String minutos_mostrar = String.format("%02d", minu);
+        String segundos_mostrar = String.format("%02d", seg);
+        tvCronometro.setText(minutos_mostrar + " : " + segundos_mostrar);
+        if(esDescanso){
+            tvCronometro.setTextColor(Color.RED);
+        }
+        else{
+            tvCronometro.setTextColor(Color.GREEN);
+        }
+    }
+    public void iniciarCrono(float tiempo){
+        long valor = obtenerMilis(tiempo);
         cuenta = new CountDownTimer(valor, 1000) {
             @Override
             public void onTick(long l) {
-                long tiempolong = l / 1000;
-                int minu = (int) tiempolong / 60;
-                long seg = tiempolong % 60;
-                String minutos_mostrar = String.format("%d", minu);
-                String segundos_mostrar = String.format("%02d", seg);
-                tvCronometro.setText(minutos_mostrar + " : " + segundos_mostrar);
-                }
+                mostrarTiempo(l);
+            }
                 @Override
                 public void onFinish() {
-                    Toast.makeText(RealizarEntrenamiento.this, "Serie creada con éxito", Toast.LENGTH_LONG).show();
+                    tvCronometro.setText("00 : 00");
+                    if(!esDescanso){
+                        esDescanso = true;
+                        playDescanso();
+                    }
+                    else{
+                        esDescanso = false;
+                        nextCiclo();
+                    }
+
                 }
             }.start();
-
-
     }
-
     public void pausarCrono() {
         if (cuenta != null) {
+            tvCronometro.setText("00 : 00");
             cuenta.cancel();
             cuenta = null;
         }
     }
-    /*
 
 
-    public void startCrono(){
-        if(!running){
-            crono.setBase(SystemClock.elapsedRealtime()-pauseoffset);
-            crono.start();
-            running = true;
-        }
-    }
-
-    public void pauseCrono(View v){
-        if(running){
-            crono.stop();
-            pauseoffset = SystemClock.elapsedRealtime() - crono.getBase();
-            running = false;
-        }
-    }
-
-    public void resetCrono(View v){
-        crono.setBase(SystemClock.elapsedRealtime());
-        pauseoffset = 0;
-    }
-
-
-     */
-
-
-    public void empezarSesion(Sesion sesionElegida, List<Serie> listaSeries){
+    //MËTODOS INICIO SESION ENTRENAMIENTO
+    public void empezarSesion(Sesion sesionElegida){
         linearSeleccion.setVisibility(View.INVISIBLE);
         linearLayoutRealizar.setVisibility(View.VISIBLE);
         tvNombreSesionElegida.setText(tvNombreSesionElegida.getText() + ": " + sesionElegida.getNombre());
-        infoSerie(listaSeries);
+        setSerie();
     }
 
-    public void infoSerie(List<Serie> listaSeries){
-        Serie serie = listaSeries.get(contadorSeries);
-        tvNombreSerieActiva.setText(tvNombreSerieActiva.getText() + ": " + serie.getNombre());
-        String ejercicio = baseDatos.daoEjercicio().consultarEjercicioPorID(serie.getIdEjercicio()).getNombre();
-        tvEjerSerie.setText(tvEjerSerie.getText() + ": " + ejercicio);
+    public void setSerie(){
+        serieActual = listaSeries.get(contadorSeries);
+        tvNombreSerieActiva.setText("Serie: " + serieActual.getNombre());
+        String ejercicio = baseDatos.daoEjercicio().consultarEjercicioPorID(serieActual.getIdEjercicio()).getNombre();
+        tvEjerSerie.setText("Ejercicio: " + ejercicio);
+        valortvCronometro();
+        valortvCiclos();
     }
-    public void seriesInit(List<Serie> listaSeries){
 
+    public void valortvCronometro(){
+        if(serieActual.getDuracion() != 0.0){
+            linearPlayPause.setVisibility(View.VISIBLE);
+            tvInfoRepes.setText("Tiempo:");
+            long duracion = obtenerMilis(serieActual.getDuracion());
+            mostrarTiempo(duracion);
+        }
+        if(serieActual.getRepeticiones() != 0){
+            linearPlayPause.setVisibility(View.INVISIBLE);
+            tvInfoRepes.setText("Repeticiones:");
+            tvCronometro.setText(String.format("%d", serieActual.getRepeticiones()));
+        }
     }
 
-    @Override
-    public void onClick(View v) {
-
+    public void valortvCiclos(){
+        tvCiclosRestantes.setText(String.format("%d", serieActual.getCiclos() - contadorCiclos));
     }
+
+    public void nextSerie(){
+        contadorSeries++;
+        if(contadorSeries >= listaSeries.size()){
+            Toast.makeText(RealizarEntrenamiento.this, "Entrenamiento finalizado!", Toast.LENGTH_LONG).show();
+            irHome();
+            //Guardar en histórico
+        }
+        else{
+            serieActual = listaSeries.get(contadorSeries);
+            contadorCiclos = 0;
+            pausarCrono();
+            setSerie();
+        }
+    }
+
+    public void nextCiclo(){
+        if(!esDescanso) {
+            btnPlay.setEnabled(true);
+            contadorCiclos++;
+            if (contadorCiclos > serieActual.getCiclos()) {
+                contadorSeries++;
+                if (contadorSeries >= listaSeries.size()) {
+                    Toast.makeText(RealizarEntrenamiento.this, "Entrenamiento finalizado!", Toast.LENGTH_LONG).show();
+                    irHome();
+                    //Guardar en histórico
+                } else {
+                    serieActual = listaSeries.get(contadorSeries);
+                    pausarCrono();
+                    setSerie();
+                }
+            } else {
+                pausarCrono();
+                setSerie();
+            }
+        }
+        else{
+            playDescanso();
+        }
+    }
+
+    public void playDescanso(){
+        linearPlayPause.setVisibility(View.INVISIBLE);
+        tvInfoRepes.setText("Descanso:");
+        iniciarCrono(serieActual.getDescansoCiclo());
+    }
+
+    public void irHome(){
+        Intent intencion = new Intent(RealizarEntrenamiento.this, HomeActivity.class);
+        startActivity(intencion);
+    }
+
 }

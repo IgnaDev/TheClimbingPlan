@@ -51,13 +51,13 @@ public class CrearSerie extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String grupo = spinnerGrupo.getSelectedItem().toString();
                     listaEjercicios = buscarEjercicioPorGrupo(grupo);
-                    agregarEjercicios(listaEjercicios, listaSeries);
+                    inflarVistaEjercicios(listaEjercicios, listaSeries);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 listaEjercicios = buscarTodosEjercicios();
-                agregarEjercicios(listaEjercicios, listaSeries);
+                inflarVistaEjercicios(listaEjercicios, listaSeries);
             }
         });
 
@@ -78,7 +78,7 @@ public class CrearSerie extends AppCompatActivity {
         return baseDatos.daoEjercicio().consultarEjercicioPorGrupo(g.getIdGrupo());
     }
 
-    private void agregarEjercicios(List<Ejercicio> listaEjercicios,  ArrayList<String> listaSeries){
+    private void inflarVistaEjercicios(List<Ejercicio> listaEjercicios, ArrayList<String> listaSeries){
         ejerLayout.removeAllViews();
         for(Ejercicio e : listaEjercicios){
             // Inflar la vista del ejercicio desde un archivo XML de diseño

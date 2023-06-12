@@ -27,16 +27,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FormularioEntrenamiento extends AppCompatActivity {
-    LinearLayout seriesLayout;
+
     EditText etNombreEntrenamiento, etDescripcionEntrenamiento;
     Spinner spinnerCategoria;
     BaseDatos baseDatos;
     LinearLayout serieLayout;
     FloatingActionButton btnCrearCategoria;
     Button btnAddSeries, btnVolverFormularioEntr, btnAceptarFormuEntre;
+
+    TextView tvPrueba;
     //private static final int CREATE_SERIE_REQUEST = 1;
     private List<Serie> seriesList = new ArrayList<>();
     ArrayList<String> listaNombresSeries = new ArrayList<>();
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -49,9 +52,10 @@ public class FormularioEntrenamiento extends AppCompatActivity {
         btnCrearCategoria = findViewById(R.id.btnCrearCategoria);
         serieLayout = findViewById(R.id.seriesLayout);
         btnAddSeries = findViewById(R.id.btnAddSeries);
-        seriesLayout = findViewById(R.id.seriesLayout);
         btnAceptarFormuEntre = findViewById(R.id.btnAceptarFormuEntre);
         btnVolverFormularioEntr = findViewById(R.id.btnVolverFormularioEntr);
+        tvPrueba = findViewById(R.id.tvPrueba);
+
         setTitle("Formulario Entrenamiento");
         baseDatos = Room.databaseBuilder(
                 getApplicationContext(),
@@ -61,10 +65,12 @@ public class FormularioEntrenamiento extends AppCompatActivity {
 //TODO botón eliminar serie
         //TODO añadir serie existente
         //TODO crear tabla intermedia serie sesion
-        getBundleSerie(listaNombresSeries);
-        addNombresSeries(listaNombresSeries);
+        getBundleSerie();
+        inflarVistaSeries(listaNombresSeries);
         //CATEGORIA
         adapterSpinnerCategoria();
+
+        pruebatv(listaNombresSeries);
 
         btnCrearCategoria.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,24 +105,13 @@ public class FormularioEntrenamiento extends AppCompatActivity {
 
     }
 
-    public void addNombresSeries(ArrayList<String> listaNombresSeries){
-
-    }
-    public int getidSesionActual(String nombre){
-        return baseDatos.daoSesion().consultarSesionesPorNombre(nombre).idSesion;
-    }
     public void adapterSpinnerCategoria(){
-        List<String> listaCategorias = new ArrayList<>();
+        List<String> listaCategorias;
         listaCategorias = baseDatos.daoCategoria().consultarNombresCategorias();
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listaCategorias);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, listaCategorias);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCategoria.setAdapter(adapter);
     }
-
-    public List<SerieSesion> getSeriesSesion(int idSesion){
-        return baseDatos.daoSerieSesion().obtenerSeriesPorSesion(idSesion);
-    }
-
     public void irCrearSerie(ArrayList<String> listaNombresSeries){
 
         Intent intent = new Intent(this, CrearSerie.class);
@@ -126,14 +121,21 @@ public class FormularioEntrenamiento extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void getBundleSerie(ArrayList<String> seriesList) {
+    public void pruebatv(ArrayList<String> seriesList){
+        String cadena = "";
+        for(String s : seriesList){
+            cadena = cadena + s + "\n";
+            tvPrueba.setText(cadena);
+        }
+    }
+
+    public void getBundleSerie() {
             Bundle bundle = getIntent().getExtras();
             if (bundle != null) {
-                ArrayList<String> series = bundle.getStringArrayList("listaSeries");
-                for(String s: series){
-                    seriesList.add(s);
+                ArrayList<String> listaSeries =  bundle.getStringArrayList("listaSeries");
+                if(listaSeries.size() > 0){
+                    listaNombresSeries.addAll(listaSeries);
                 }
-                agregarSeries(seriesList);
             }
         }
 
@@ -144,18 +146,13 @@ public class FormularioEntrenamiento extends AppCompatActivity {
 
     public void irMenuEntrenamiento(){
         Intent intent = new Intent(this, MenuEntrenamiento.class);
-        /*
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("sesion", sesion);
-        intent.putExtras(bundle);
-        */
         startActivity(intent);
     }
 
-    private void agregarSeries(ArrayList<String> listaSeries){
+    private void inflarVistaSeries(ArrayList<String> listaSeries){
         for(String e : listaSeries){
             // Inflar la vista del Serie desde un archivo XML de diseño
-            View serieView = getLayoutInflater().inflate(R.layout.item_serie, null);
+            @SuppressLint("InflateParams") View serieView = getLayoutInflater().inflate(R.layout.item_serie, null);
 
             // Configurar la vista de la Serie con los datos correspondientes
             TextView tvNombreSerie = serieView.findViewById(R.id.tvNombreSerie);
@@ -171,7 +168,7 @@ public class FormularioEntrenamiento extends AppCompatActivity {
                 }
             });
 
-            // Añadir la vista de la ejercicio al LinearLayout
+            // Añadir la vista de la serie al LinearLayout
             serieLayout.addView(serieView);
         }
     }
@@ -183,8 +180,9 @@ public class FormularioEntrenamiento extends AppCompatActivity {
     private boolean nombreExiste(String nombre, List<String> listaNombresSesiones){
         boolean existe = false;
         for (String s : listaNombresSesiones){
-            if(nombre.equals(s)){
+            if (nombre.equals(s)) {
                 existe = true;
+                break;
             }
         }
         return existe;
@@ -222,50 +220,7 @@ public class FormularioEntrenamiento extends AppCompatActivity {
                     }
                     irMenuEntrenamiento();
                 }
-                //irCrearSerie(sesion.idSesion);
-                //btnAddSerie.setVisibility(View.VISIBLE);
             }
         }
     }
-/*
-    private List<Serie> listaSeriesPorSesion(int idSesion){
-        List<SerieSesion> listaSS = baseDatos.daoSerieSesion().obtenerSeriesPorSesion(idSesion);
-        List<Serie> listaSeries = new ArrayList<>();
-        for(SerieSesion ss : listaSS){
-            Serie s = baseDatos.daoSerie().consultarSeriePorNombre(ss.nombreSerie);
-            listaSeries.add(s);
-        }
-        return listaSeries;
-    }
-
-    private void agregarSeriess(List<Serie> listaSeries){
-        for(Serie e : listaSeries){
-            // Inflar la vista del ejercicio desde un archivo XML de diseño
-            View serieView = getLayoutInflater().inflate(R.layout.item_sesion, null);
-
-            // Configurar la vista de la ejercicio con los datos correspondientes
-            TextView tvNombress = serieView.findViewById(R.id.tvNombress);
-            tvNombress.setText(e.nombre);
-
-            // Obtener referencia al botón flotante "agregar"
-            FloatingActionButton btnAddEjer = serieView.findViewById(R.id.btnAddss);
-            btnAddEjer.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    SerieSesion ss = new SerieSesion(e.nombre, getidSesionActual(etNombreEntrenamiento.getText().toString()));
-                    eliminarSerieSesion(ss);
-                    agregarSeriess(listaSeries);
-                }
-            });
-
-            // Añadir la vista de la ejercicio al LinearLayout
-            seriesLayout.addView(serieView);
-        }
-    }
-
-    public void eliminarSerieSesion(SerieSesion serieSesion){
-        baseDatos.daoSerieSesion().eliminarSerieSesion(serieSesion);
-    }
-
- */
 }
