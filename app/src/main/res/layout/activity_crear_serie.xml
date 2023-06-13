@@ -7,6 +7,18 @@
     android:background="@drawable/fondocolor"
     tools:context=".Activities.CrearSerie">
 
+    <TextView
+        android:id="@+id/textView"
+        style="@style/MyTextView"
+        android:layout_width="311dp"
+        android:layout_height="42dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="59dp"
+        android:text="@string/a_adir_ejercicio_nuevo"
+        app:layout_constraintBottom_toBottomOf="@+id/btnAddEjercicio"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="VisualLintOverlap,TextSizeCheck" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnAddEjercicio"
         android:layout_width="60dp"
@@ -18,7 +30,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="SpeakableTextPresentCheck" />
+        tools:ignore="ContentDescription,HardcodedText,SpeakableTextPresentCheck" />
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
@@ -31,19 +43,40 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:context=".Activities.CrearSerie">
 
-        <Spinner
-            android:id="@+id/categorySpinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="48dp"
-            android:spinnerMode="dropdown"
-            tools:ignore="SpeakableTextPresentCheck" />
-
-        <ScrollView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView2"
+                style="@style/MyTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/selecciona_grupo_de_ejercicios" />
+
+            <Spinner
+                android:id="@+id/categorySpinner"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:minHeight="48dp"
+                android:spinnerMode="dropdown"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <TextView
+                android:id="@+id/textView3"
+                style="@style/MyTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Escoge un ejercicio" />
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="382dp"
+            android:layout_height="469dp"
             android:layout_below="@id/categorySpinner"
-            tools:ignore="SpeakableTextPresentCheck">
+            android:layout_marginTop="128dp"
+            tools:ignore="NotSibling,SpeakableTextPresentCheck">
 
             <LinearLayout
                 android:id="@+id/ejerciciosLayout"

@@ -35,4 +35,9 @@
     <string name="sig_ciclo">Sig. Ciclo</string>
     <string name="sig_serie">Sig. Serie</string>
     <string name="ciclos_restantes">Ciclos restantes:</string>
+    <string name="a_adir_ejercicio_nuevo">Añadir Ejercicio Nuevo</string>
+    <string name="selecciona_grupo_de_ejercicios">Selecciona Grupo de Ejercicios</string>
+    <string name="pulse_quot_a_adir_serie_quot_para_a_adir_series_de_entreno_a_esta_sesi_n">Pulse \"Añadir Serie\" para añadir series de entreno a esta sesión.</string>
+    <string name="para_guardar_la_sesi_n_pulse_en_quot_guardar_quot">Para guardar la sesión, pulse en \"Guardar\"</string>
+    <string name="guardar">Guardar</string>
 </resources>

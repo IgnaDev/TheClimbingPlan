@@ -22,6 +22,9 @@ public class CrearCategoria extends AppCompatActivity {
     EditText etNombreCategoria, etDescripcionCategoria;
     Button btnAceptar, btnCancelar;
     BaseDatos baseDatos;
+
+    ArrayList<String> listaNombresSeries = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +39,8 @@ public class CrearCategoria extends AppCompatActivity {
                 "@DBPruebas"
         ).allowMainThreadQueries().build();
         setTitle("Crear Categoria");
+        getBundleSerie();
+
         btnAceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,6 +98,19 @@ public class CrearCategoria extends AppCompatActivity {
 
     public void irFormularioEntrenamiento(){
         Intent intencion = new Intent(CrearCategoria.this, FormularioEntrenamiento.class);
+        Bundle bundle = new Bundle();
+        bundle.putStringArrayList("listaSeries", listaNombresSeries);
+        intencion.putExtras(bundle);
         startActivity(intencion);
+    }
+
+    public void getBundleSerie() {
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            ArrayList<String> listaSeries =  bundle.getStringArrayList("listaSeries");
+            if(listaSeries.size() > 0){
+                listaNombresSeries.addAll(listaSeries);
+            }
+        }
     }
 }

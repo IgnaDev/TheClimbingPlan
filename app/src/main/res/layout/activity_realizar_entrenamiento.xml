@@ -31,6 +31,7 @@
 
             <TextView
                 android:id="@+id/tvCategoria"
+                style="@style/MyTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="27dp"
@@ -48,6 +49,7 @@
 
             <TextView
                 android:id="@+id/tvSesion"
+                style="@style/MyTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="27dp"
@@ -65,6 +67,7 @@
 
             <Button
                 android:id="@+id/btnEmpezarEntreno"
+                style="@style/DarkButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -91,6 +94,7 @@
 
         <TextView
             android:id="@+id/tvNombreSesionElegida"
+            style="@style/MyTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="27dp"
@@ -99,6 +103,7 @@
 
         <TextView
             android:id="@+id/tvNombreSerieActiva"
+            style="@style/MyTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="27dp"
@@ -107,6 +112,7 @@
 
         <TextView
             android:id="@+id/tvEjerSerie"
+            style="@style/MyTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="27dp"
@@ -115,6 +121,7 @@
 
         <TextView
             android:id="@+id/tvInfoRepes"
+            style="@style/MyTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -163,6 +170,7 @@
 
         <TextView
             android:id="@+id/tvInfoCiclos"
+            style="@style/MyTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/ciclos_restantes" />
@@ -174,7 +182,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="27dp"
             android:textColor="@color/blanco"
-            android:textSize="60sp"/>
+            android:textSize="60sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -183,19 +191,19 @@
 
             <Button
                 android:id="@+id/btnNextCiclo"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/sig_ciclo"
-                style="?android:attr/buttonBarButtonStyle" />
+                android:text="@string/sig_ciclo" />
 
             <Button
                 android:id="@+id/btnNextSerie"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/sig_serie"
-                style="?android:attr/buttonBarButtonStyle" />
+                android:text="@string/sig_serie" />
         </LinearLayout>
 
 

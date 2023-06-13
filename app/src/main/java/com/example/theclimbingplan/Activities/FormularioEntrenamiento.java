@@ -31,11 +31,12 @@ public class FormularioEntrenamiento extends AppCompatActivity {
     EditText etNombreEntrenamiento, etDescripcionEntrenamiento;
     Spinner spinnerCategoria;
     BaseDatos baseDatos;
-    LinearLayout serieLayout;
-    FloatingActionButton btnCrearCategoria;
-    Button btnAddSeries, btnVolverFormularioEntr, btnAceptarFormuEntre;
 
-    TextView tvPrueba;
+    LinearLayout linearDatos;
+    FloatingActionButton btnCrearCategoria;
+    Button btnAddSeries, btnVolverFormularioEntr, btnAceptarFormuEntre, btnGuardar;
+
+    TextView tvPrueba, tvInfo, tvInfo2;
     //private static final int CREATE_SERIE_REQUEST = 1;
     private List<Serie> seriesList = new ArrayList<>();
     ArrayList<String> listaNombresSeries = new ArrayList<>();
@@ -48,13 +49,16 @@ public class FormularioEntrenamiento extends AppCompatActivity {
         setContentView(R.layout.activity_formulario_entrenamiento);
         etNombreEntrenamiento = findViewById(R.id.etNombreEntrenamiento);
         etDescripcionEntrenamiento = findViewById(R.id.etDescripcionEntrenamiento);
-        spinnerCategoria = findViewById(R.id.spinnerCategoria);
-        btnCrearCategoria = findViewById(R.id.btnCrearCategoria);
-        serieLayout = findViewById(R.id.seriesLayout);
         btnAddSeries = findViewById(R.id.btnAddSeries);
         btnAceptarFormuEntre = findViewById(R.id.btnAceptarFormuEntre);
         btnVolverFormularioEntr = findViewById(R.id.btnVolverFormularioEntr);
+        btnGuardar = findViewById(R.id.btnNombrarSesion);
         tvPrueba = findViewById(R.id.tvPrueba);
+        tvInfo = findViewById(R.id.tvInfo);
+        tvInfo2 = findViewById(R.id.tvInfo2);
+        linearDatos = findViewById(R.id.linearDatos);
+        spinnerCategoria = findViewById(R.id.spinnerCategoria1);
+        btnCrearCategoria = findViewById(R.id.btnCrearCategoria1);
 
         setTitle("Formulario Entrenamiento");
         baseDatos = Room.databaseBuilder(
@@ -62,11 +66,8 @@ public class FormularioEntrenamiento extends AppCompatActivity {
                 BaseDatos.class,
                 "@DBPruebas"
         ).allowMainThreadQueries().build();
-//TODO botón eliminar serie
-        //TODO añadir serie existente
-        //TODO crear tabla intermedia serie sesion
+
         getBundleSerie();
-        inflarVistaSeries(listaNombresSeries);
         //CATEGORIA
         adapterSpinnerCategoria();
 
@@ -103,14 +104,28 @@ public class FormularioEntrenamiento extends AppCompatActivity {
             }
         });
 
+        btnGuardar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(listaNombresSeries.size() > 0){
+                    nombrarSesion();
+                }
+                else{
+                    Toast.makeText(FormularioEntrenamiento.this, "Debe añadior al menos una serie al entrenamiento", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 
     public void adapterSpinnerCategoria(){
         List<String> listaCategorias;
         listaCategorias = baseDatos.daoCategoria().consultarNombresCategorias();
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, listaCategorias);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerCategoria.setAdapter(adapter);
+        if(listaCategorias.size() > 0){
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, listaCategorias);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinnerCategoria.setAdapter(adapter);
+        }
+
     }
     public void irCrearSerie(ArrayList<String> listaNombresSeries){
 
@@ -141,6 +156,9 @@ public class FormularioEntrenamiento extends AppCompatActivity {
 
     public void irCrearCategoria(){
         Intent intent = new Intent(this, CrearCategoria.class);
+        Bundle bundle = new Bundle();
+        bundle.putStringArrayList("listaSeries", listaNombresSeries);
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 
@@ -149,29 +167,6 @@ public class FormularioEntrenamiento extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void inflarVistaSeries(ArrayList<String> listaSeries){
-        for(String e : listaSeries){
-            // Inflar la vista del Serie desde un archivo XML de diseño
-            @SuppressLint("InflateParams") View serieView = getLayoutInflater().inflate(R.layout.item_serie, null);
-
-            // Configurar la vista de la Serie con los datos correspondientes
-            TextView tvNombreSerie = serieView.findViewById(R.id.tvNombreSerie);
-            tvNombreSerie.setText(e);
-
-            // Obtener referencia al botón flotante "borrar"
-            FloatingActionButton btnDeleteSerie = serieView.findViewById(R.id.btnDeleteSerie);
-            btnDeleteSerie.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listaSeries.remove(e);
-                    recreate();
-                }
-            });
-
-            // Añadir la vista de la serie al LinearLayout
-            serieLayout.addView(serieView);
-        }
-    }
 
     private List<String> listaNombresSesiones(){
         return baseDatos.daoSesion().consultarNombreSesiones();
@@ -222,5 +217,22 @@ public class FormularioEntrenamiento extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    public void nombrarSesion(){
+        //invisibilizar
+        tvInfo2.setVisibility(View.INVISIBLE);
+        tvInfo.setVisibility(View.INVISIBLE);
+        tvPrueba.setVisibility(View.INVISIBLE);
+        btnGuardar.setVisibility(View.INVISIBLE);
+        btnAddSeries.setVisibility(View.INVISIBLE);
+        //reducir
+        tvPrueba.setHeight(0);
+        tvInfo.setHeight(0);
+        tvInfo2.setHeight(0);
+        btnGuardar.setHeight(0);
+        btnAddSeries.setHeight(0);
+        //visibilizar
+        linearDatos.setVisibility(View.VISIBLE);
     }
 }

@@ -10,139 +10,162 @@
     tools:context=".Activities.FormularioEntrenamiento">
 
     <ScrollView
-        android:id="@+id/nestedScrollView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="363dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout7"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/linearLayout4"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/etNombreEntrenamiento"
+            <TextView
+                android:id="@+id/tvInfo2"
+                style="@style/MyTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/pulse_quot_a_adir_serie_quot_para_a_adir_series_de_entreno_a_esta_sesi_n" />
+
+            <TextView
+                android:id="@+id/tvPrueba"
+                style="@style/MyTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="27dp"
-                android:autofillHints=""
-                android:ems="10"
-                android:hint="@string/nombre"
-                android:inputType="textPersonName"
-                android:minHeight="48dp"
-                android:textColorHint="#90CAF9" />
-
-            <EditText
-                android:id="@+id/etDescripcionEntrenamiento"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="27dp"
-                android:autofillHints=""
-                android:ems="10"
-                android:hint="@string/descripci_n"
-                android:inputType="textPersonName"
-                android:minHeight="48dp"
-                android:textColorHint="#90CAF9" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="27dp"
-                android:orientation="horizontal">
-
-                <Spinner
-                    android:id="@+id/spinnerCategoria"
-                    android:layout_width="341dp"
-                    android:layout_height="48dp"
-                    android:layout_weight="1"
-                    android:spinnerMode="dropdown"
-                    tools:ignore="SpeakableTextPresentCheck" />
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/btnCrearCategoria"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_weight="1"
-                    android:clickable="true"
-                    android:contentDescription="@string/todo"
-                    android:focusable="true"
-                    android:minWidth="48dp"
-                    android:minHeight="48dp"
-                    app:fabCustomSize="48dp"
-                    app:srcCompat="@android:drawable/ic_menu_add"
-                    tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
-
-            </LinearLayout>
+                android:textColor="@color/blanco" />
 
             <Button
                 android:id="@+id/btnAddSeries"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="27dp"
                 android:text="@string/a_adir_series" />
 
             <TextView
-                android:id="@+id/tvPrueba"
+                android:id="@+id/tvInfo"
+                style="@style/MyTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginTop="27dp"
+                android:text="@string/para_guardar_la_sesi_n_pulse_en_quot_guardar_quot" />
+
+            <Button
+                android:id="@+id/btnNombrarSesion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="27dp"
+                android:text="@string/guardar" />
 
             <LinearLayout
+                android:id="@+id/linearDatos"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="13dp"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="invisible">
 
-                <LinearLayout
-                    android:id="@+id/seriesLayout"
+                <EditText
+                    android:id="@+id/etNombreEntrenamiento"
+                    style="@style/MyEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical" />
+                    android:layout_marginTop="27dp"
+                    android:autofillHints=""
+                    android:ems="10"
+                    android:hint="@string/nombre"
+                    android:inputType="textPersonName"
+                    android:minHeight="48dp"
+                    android:textColorHint="#90CAF9" />
+
+                <EditText
+                    android:id="@+id/etDescripcionEntrenamiento"
+                    style="@style/MyEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="27dp"
+                    android:autofillHints=""
+                    android:ems="10"
+                    android:hint="@string/descripci_n"
+                    android:inputType="textPersonName"
+                    android:minHeight="48dp"
+                    android:textColorHint="#90CAF9" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    style="@style/MyTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Elige una categoría, o pulsa el botón para crear una nueva"
+                    android:textSize="20sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/spinnerCategoria1"
+                        android:layout_width="341dp"
+                        android:layout_height="48dp"
+                        android:layout_weight="1"
+                        android:spinnerMode="dropdown"
+                        tools:ignore="SpeakableTextPresentCheck" />
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/btnCrearCategoria1"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        android:contentDescription="@string/todo"
+                        android:focusable="true"
+                        android:minWidth="48dp"
+                        android:minHeight="48dp"
+                        app:fabCustomSize="48dp"
+                        app:srcCompat="@android:drawable/ic_menu_add"
+                        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayout7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
+
+
+                    <Button
+                        android:id="@+id/btnVolverFormularioEntr"
+                        style="@style/DarkButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/cancelar"
+                        android:textColor="#E1BEE7" />
+
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <Button
+                        android:id="@+id/btnAceptarFormuEntre"
+                        style="@style/DarkButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/aceptar"
+                        android:textColor="#E1BEE7" />
+                </LinearLayout>
 
             </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
-
-    <LinearLayout
-        android:id="@+id/linearLayout7"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-
-        <Button
-            android:id="@+id/btnVolverFormularioEntr"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/cancelar"
-            android:textColor="#E1BEE7" />
-
-        <Button
-            android:id="@+id/btnAceptarFormuEntre"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/aceptar"
-            android:textColor="#E1BEE7" />
-    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

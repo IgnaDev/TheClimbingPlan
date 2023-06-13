@@ -18,6 +18,7 @@ import com.example.theclimbingplan.R;
 import com.example.theclimbingplan.Entities.Serie;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class FormularioSerie extends AppCompatActivity {
     RadioGroup radioGroupSeleccion;
@@ -85,24 +86,35 @@ public class FormularioSerie extends AppCompatActivity {
                         Toast.makeText(FormularioSerie.this, "Debe rellenar todos los campos para continuar", Toast.LENGTH_LONG).show();
                     }
                     else{
-                        Serie serie = new Serie(idEjercicio,nombre,repeticiones,descanso, ciclos);
-                        listaNombresSeries.add(serie.getNombre());
-                        baseDatos.daoSerie().insertarSerie(serie);
-                        Toast.makeText(FormularioSerie.this, "Serie creada con éxito", Toast.LENGTH_LONG).show();
-                        irFormularioEntrenamiento(serie, listaNombresSeries);
-                    }
+                        if(nombreCorrecto(nombre)){
+                            Serie serie = new Serie(idEjercicio,nombre,repeticiones,descanso, ciclos);
+                            listaNombresSeries.add(serie.getNombre());
+                            baseDatos.daoSerie().insertarSerie(serie);
+                            Toast.makeText(FormularioSerie.this, "Serie creada con éxito", Toast.LENGTH_LONG).show();
+                            irFormularioEntrenamiento(serie, listaNombresSeries);
+
+                        }
+                        else{
+                            Toast.makeText(FormularioSerie.this, "Ya existe una serie con ese nombre", Toast.LENGTH_LONG).show();
+                        }
+                        }
                 }
                 if(radioGroupSeleccion.getCheckedRadioButtonId() == R.id.radioDuracion){
                     if(nombre.isEmpty() || duracion == 9999 || ciclos == 9999 || descanso == 9999){
                         Toast.makeText(FormularioSerie.this, "Debe rellenar todos los campos para continuar", Toast.LENGTH_LONG).show();
                     }
                     else{
-                        Serie serie = new Serie(idEjercicio,nombre,duracion,descanso, ciclos);
-                        listaNombresSeries.add(serie.getNombre());
-                        baseDatos.daoSerie().insertarSerie(serie);
-                        Toast.makeText(FormularioSerie.this, "Serie creada con éxito", Toast.LENGTH_LONG).show();
-                        irFormularioEntrenamiento(serie, listaNombresSeries);
-                    }
+                        if(nombreCorrecto(nombre)){
+                            Serie serie = new Serie(idEjercicio,nombre,duracion,descanso, ciclos);
+                            listaNombresSeries.add(serie.getNombre());
+                            baseDatos.daoSerie().insertarSerie(serie);
+                            Toast.makeText(FormularioSerie.this, "Serie creada con éxito", Toast.LENGTH_LONG).show();
+                            irFormularioEntrenamiento(serie, listaNombresSeries);
+                        }
+                        else{
+                            Toast.makeText(FormularioSerie.this, "Ya existe una serie con ese nombre", Toast.LENGTH_LONG).show();
+                        }
+                        }
                 }
                 else{
                     Toast.makeText(FormularioSerie.this, "Debe elegir entre repeticiones o duración", Toast.LENGTH_LONG).show();
@@ -164,6 +176,17 @@ public class FormularioSerie extends AppCompatActivity {
         } else {
             return 9999; // Valor por defecto de repeticiones si el campo está vacío
         }
+    }
+
+    public boolean nombreCorrecto(String nombre){
+        List<String> nombresSeries = baseDatos.daoSerie().consultarNombreSeries();
+        boolean correcto = true;
+        for(String s : nombresSeries){
+            if(nombre.equals(s)){
+                correcto =  false;
+            }
+        }
+        return correcto;
     }
 
 

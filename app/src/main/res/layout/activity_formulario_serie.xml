@@ -21,6 +21,7 @@
 
         <TextView
             android:id="@+id/tvEjerSeleccionado"
+            style="@style/MyTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/ejercicio"
@@ -29,6 +30,7 @@
 
         <EditText
             android:id="@+id/editTextNombreSerie"
+            style="@style/MyEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="27dp"
@@ -61,6 +63,7 @@
 
         <EditText
             android:id="@+id/editTextRepeticiones"
+            style="@style/MyEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="27dp"
@@ -69,10 +72,11 @@
             android:inputType="number"
             android:minHeight="48dp"
             android:textColorHint="#90CAF9"
-            android:visibility="invisible"/>
+            android:visibility="invisible" />
 
         <EditText
             android:id="@+id/editTextDuracion"
+            style="@style/MyEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="27dp"
@@ -81,10 +85,11 @@
             android:inputType="numberDecimal"
             android:minHeight="48dp"
             android:textColorHint="#90CAF9"
-            android:visibility="invisible"/>
+            android:visibility="invisible" />
 
         <EditText
             android:id="@+id/editTextDescansoCiclo"
+            style="@style/MyEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="27dp"
@@ -96,6 +101,7 @@
 
         <EditText
             android:id="@+id/editTextCiclos"
+            style="@style/MyEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="27dp"
@@ -113,6 +119,7 @@
 
             <Button
                 android:id="@+id/btnCancelarFormSerie"
+                style="@style/DarkButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -125,6 +132,7 @@
 
             <Button
                 android:id="@+id/btnAceptarFormSerie"
+                style="@style/DarkButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

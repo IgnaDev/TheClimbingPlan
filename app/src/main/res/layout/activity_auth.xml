@@ -30,7 +30,7 @@
             android:hint="@string/email"
             android:inputType="textEmailAddress"
             android:minHeight="48dp"
-            android:textColor="#00BCD4"
+            style="@style/MyEditText"
             android:textColorHint="#82B1FF" />
 
         <Space
@@ -45,7 +45,7 @@
             android:hint="@string/contrase_a"
             android:inputType="textPassword"
             android:minHeight="48dp"
-            android:textColorHint="#80DEEA"
+            style="@style/MyEditText"
             android:autofillHints="" />
 
         <Space
@@ -55,14 +55,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="27dp"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btnSignUp"
+                style="@style/DarkButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:backgroundTint="@color/verdefluor"
                 android:text="@string/registrar" />
 
             <Space
@@ -72,10 +73,11 @@
 
             <Button
                 android:id="@+id/btnLogIn"
+                style="@style/DarkButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:backgroundTint="@color/verdefluor"
+                android:background="@color/teal_200"
                 android:text="@string/acceder" />
 
         </LinearLayout>
@@ -85,18 +87,24 @@
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
-        <Button
-            android:id="@+id/btnGoogle"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/white"
-            android:backgroundTint="#FBF8F8"
-            android:drawableStart="@drawable/common_google_signin_btn_icon_dark"
-            android:drawableLeft="@drawable/common_google_signin_btn_icon_dark_focused"
-            android:paddingStart="16dp"
-            android:text="@string/google"
-            android:textAlignment="textStart"
-            android:textColor="#827717" />
+            android:layout_height="70dp"
+            android:layout_marginTop="27dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnGoogle"
+                style="@style/DarkButton"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:drawableStart="@drawable/google"
+                android:text="@string/google"
+                android:textColor="@color/design_default_color_on_primary"
+                android:textSize="24sp" />
+        </LinearLayout>
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
