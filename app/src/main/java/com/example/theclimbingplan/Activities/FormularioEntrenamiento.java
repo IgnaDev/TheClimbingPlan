@@ -31,7 +31,7 @@ public class FormularioEntrenamiento extends AppCompatActivity {
     EditText etNombreEntrenamiento, etDescripcionEntrenamiento;
     Spinner spinnerCategoria;
     BaseDatos baseDatos;
-
+    boolean vienenDatos;
     LinearLayout linearDatos;
     FloatingActionButton btnCrearCategoria;
     Button btnAddSeries, btnVolverFormularioEntr, btnAceptarFormuEntre, btnGuardar;
@@ -41,6 +41,8 @@ public class FormularioEntrenamiento extends AppCompatActivity {
     private List<Serie> seriesList = new ArrayList<>();
     ArrayList<String> listaNombresSeries = new ArrayList<>();
 
+    String nombreEntrenamiento;
+    String descripcionEntrenamiento;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -67,54 +69,73 @@ public class FormularioEntrenamiento extends AppCompatActivity {
                 "@DBPruebas"
         ).allowMainThreadQueries().build();
 
+        nombreEntrenamiento = "";
+        descripcionEntrenamiento="";
+        vienenDatos = false;
+
         getBundleSerie();
-        //CATEGORIA
-        adapterSpinnerCategoria();
-
-        pruebatv(listaNombresSeries);
-
-        btnCrearCategoria.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                irCrearCategoria();
-            }
-        });
-
-        btnAddSeries.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                irCrearSerie(listaNombresSeries);
-            }
-        });
-
-        //SERIES
-
-
-        btnAceptarFormuEntre.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                crearSesion(seriesList);
-            }
-        });
-
-        btnVolverFormularioEntr.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                irMenuEntrenamiento();
-            }
-        });
-
-        btnGuardar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(listaNombresSeries.size() > 0){
-                    nombrarSesion();
+        if(vienenDatos){
+            nombrarSesion();
+            etNombreEntrenamiento.setText(nombreEntrenamiento);
+            etDescripcionEntrenamiento.setText(descripcionEntrenamiento);
+            btnAceptarFormuEntre.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    crearSesion(seriesList);
                 }
-                else{
-                    Toast.makeText(FormularioEntrenamiento.this, "Debe añadior al menos una serie al entrenamiento", Toast.LENGTH_LONG).show();
+            });
+            btnVolverFormularioEntr.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    irMenuEntrenamiento();
                 }
-            }
-        });
+            });
+            btnCrearCategoria.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    irCrearCategoria();
+                }
+            });
+        }
+        else {
+            pruebatv(listaNombresSeries);
+
+            btnAddSeries.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    irCrearSerie(listaNombresSeries);
+                }
+            });
+            btnGuardar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listaNombresSeries.size() > 0) {
+                        nombrarSesion();
+                    } else {
+                        Toast.makeText(FormularioEntrenamiento.this, "Debe añadior al menos una serie al entrenamiento", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+            btnCrearCategoria.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    irCrearCategoria();
+                }
+            });
+            btnAceptarFormuEntre.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    crearSesion(seriesList);
+                }
+            });
+            btnVolverFormularioEntr.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    irMenuEntrenamiento();
+                }
+            });
+
+        }
     }
 
     public void adapterSpinnerCategoria(){
@@ -127,14 +148,7 @@ public class FormularioEntrenamiento extends AppCompatActivity {
         }
 
     }
-    public void irCrearSerie(ArrayList<String> listaNombresSeries){
 
-        Intent intent = new Intent(this, CrearSerie.class);
-        Bundle bundle = new Bundle();
-        bundle.putStringArrayList("listaSeries", listaNombresSeries);
-        intent.putExtras(bundle);
-        startActivity(intent);
-    }
 
     public void pruebatv(ArrayList<String> seriesList){
         String cadena = "";
@@ -148,16 +162,30 @@ public class FormularioEntrenamiento extends AppCompatActivity {
             Bundle bundle = getIntent().getExtras();
             if (bundle != null) {
                 ArrayList<String> listaSeries =  bundle.getStringArrayList("listaSeries");
+                nombreEntrenamiento = bundle.getString("nombre");
+                descripcionEntrenamiento = bundle.getString("descripcion");
+                if (nombreEntrenamiento != null){
+                    vienenDatos = true;
+                }
                 if(listaSeries.size() > 0){
                     listaNombresSeries.addAll(listaSeries);
                 }
             }
         }
+    public void irCrearSerie(ArrayList<String> listaNombresSeries){
 
+        Intent intent = new Intent(this, CrearSerie.class);
+        Bundle bundle = new Bundle();
+        bundle.putStringArrayList("listaSeries", listaNombresSeries);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
     public void irCrearCategoria(){
         Intent intent = new Intent(this, CrearCategoria.class);
         Bundle bundle = new Bundle();
         bundle.putStringArrayList("listaSeries", listaNombresSeries);
+        bundle.putString("nombre", String.valueOf(etNombreEntrenamiento.getText()));
+        bundle.putString("descripcion", String.valueOf(etDescripcionEntrenamiento.getText()));
         intent.putExtras(bundle);
         startActivity(intent);
     }
@@ -234,5 +262,6 @@ public class FormularioEntrenamiento extends AppCompatActivity {
         btnAddSeries.setHeight(0);
         //visibilizar
         linearDatos.setVisibility(View.VISIBLE);
+        adapterSpinnerCategoria();
     }
 }

@@ -22,7 +22,8 @@ public class CrearCategoria extends AppCompatActivity {
     EditText etNombreCategoria, etDescripcionCategoria;
     Button btnAceptar, btnCancelar;
     BaseDatos baseDatos;
-
+    String nombreEntrenamiento ="";
+    String descripcionEntrenamiento = "";
     ArrayList<String> listaNombresSeries = new ArrayList<>();
 
     @Override
@@ -100,6 +101,8 @@ public class CrearCategoria extends AppCompatActivity {
         Intent intencion = new Intent(CrearCategoria.this, FormularioEntrenamiento.class);
         Bundle bundle = new Bundle();
         bundle.putStringArrayList("listaSeries", listaNombresSeries);
+        bundle.putString("nombre", String.valueOf(nombreEntrenamiento));
+        bundle.putString("descripcion", String.valueOf(descripcionEntrenamiento));
         intencion.putExtras(bundle);
         startActivity(intencion);
     }
@@ -108,6 +111,8 @@ public class CrearCategoria extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             ArrayList<String> listaSeries =  bundle.getStringArrayList("listaSeries");
+            nombreEntrenamiento = bundle.getString("nombre");
+            descripcionEntrenamiento = bundle.getString("descripcion");
             if(listaSeries.size() > 0){
                 listaNombresSeries.addAll(listaSeries);
             }

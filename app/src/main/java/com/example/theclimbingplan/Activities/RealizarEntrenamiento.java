@@ -87,6 +87,18 @@ public class RealizarEntrenamiento extends AppCompatActivity {
             }
         });
 
+        spinnerSesion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                btnEmpezar.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                btnEmpezar.setVisibility(View.INVISIBLE);
+            }
+        });
+
         btnEmpezar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
