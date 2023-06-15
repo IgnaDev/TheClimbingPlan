@@ -50,42 +50,42 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/introducir_repeticiones"
-                android:textColor="#90A4AE" />
+                android:textColor="#263238" />
+
+            <EditText
+                android:id="@+id/editTextRepeticiones"
+                style="@style/MyEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="27dp"
+                android:autofillHints=""
+                android:hint="@string/repeticiones"
+                android:inputType="number"
+                android:minHeight="48dp"
+                android:textColorHint="#90CAF9"
+                android:visibility="invisible" />
 
             <RadioButton
                 android:id="@+id/radioDuracion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/introducir_duraci_n"
-                android:textColor="#90A4AE" />
+                android:textColor="#263238" />
+
+            <EditText
+                android:id="@+id/editTextDuracion"
+                style="@style/MyEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="27dp"
+                android:autofillHints=""
+                android:hint="@string/duraci_n"
+                android:inputType="numberDecimal"
+                android:minHeight="48dp"
+                android:textColorHint="#90CAF9"
+                android:visibility="invisible" />
 
         </RadioGroup>
-
-        <EditText
-            android:id="@+id/editTextRepeticiones"
-            style="@style/MyEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="27dp"
-            android:autofillHints=""
-            android:hint="@string/repeticiones"
-            android:inputType="number"
-            android:minHeight="48dp"
-            android:textColorHint="#90CAF9"
-            android:visibility="invisible" />
-
-        <EditText
-            android:id="@+id/editTextDuracion"
-            style="@style/MyEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="27dp"
-            android:autofillHints=""
-            android:hint="@string/duraci_n"
-            android:inputType="numberDecimal"
-            android:minHeight="48dp"
-            android:textColorHint="#90CAF9"
-            android:visibility="invisible" />
 
         <EditText
             android:id="@+id/editTextDescansoCiclo"
