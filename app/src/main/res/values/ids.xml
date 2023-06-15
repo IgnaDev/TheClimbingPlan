@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="monthYearTV" type="id" />
+    <item name="cellDayText" type="id" />
+    <item name="linearHist" type="id" />
+</resources>

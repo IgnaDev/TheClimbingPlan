@@ -37,6 +37,8 @@ public class RealizarEntrenamiento extends AppCompatActivity {
     TextView tvNombreSerieActiva, tvNombreSesionElegida, tvEjerSerie, tvCronometro, tvCiclosRestantes, tvInfoRepes;
     Button btnEmpezar, btnPlay, btnReset, btnNextSerie, btnNextCiclo;
 
+    Sesion sesionElegida;
+
     boolean esDescanso = false;
     int contadorCiclos = 0;
     int contadorSeries = 0;
@@ -102,7 +104,7 @@ public class RealizarEntrenamiento extends AppCompatActivity {
         btnEmpezar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Sesion sesionElegida = baseDatos.daoSesion().consultarSesionesPorNombre(spinnerSesion.getSelectedItem().toString());
+                sesionElegida = baseDatos.daoSesion().consultarSesionesPorNombre(spinnerSesion.getSelectedItem().toString());
                 listaSerieSesion = baseDatos.daoSerieSesion().obtenerSeriesPorSesion(sesionElegida.getIdSesion());
                 for (SerieSesion ss: listaSerieSesion){
                     Serie serie = baseDatos.daoSerie().consultarSeriePorNombre(ss.getNombreSerie());
@@ -279,6 +281,7 @@ public class RealizarEntrenamiento extends AppCompatActivity {
             contadorCiclos++;
             if (contadorCiclos > serieActual.getCiclos()) {
                 contadorSeries++;
+                contadorCiclos = 0;
                 if (contadorSeries >= listaSeries.size()) {
                     Toast.makeText(RealizarEntrenamiento.this, "Entrenamiento finalizado!", Toast.LENGTH_LONG).show();
                     irHome();
@@ -305,7 +308,11 @@ public class RealizarEntrenamiento extends AppCompatActivity {
     }
 
     public void irHome(){
-        Intent intencion = new Intent(RealizarEntrenamiento.this, HomeActivity.class);
+
+        Intent intencion = new Intent(RealizarEntrenamiento.this, ConsultaHistorico.class);
+        Bundle b = new Bundle();
+        b.putSerializable("sesion",sesionElegida);
+        intencion.putExtras(b);
         startActivity(intencion);
     }
 
